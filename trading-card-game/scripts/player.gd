@@ -6,7 +6,7 @@ extends Node
 var allCards: Array[PackedScene]
 var collectedCards = {}
 
-func _ready() -> void:
+func load_player() -> void:
 	allCards = get_parent().allCards
 	
 	for card in allCards:

@@ -7,16 +7,44 @@ enum availableScenes {
 }
 
 var collectionScene: PackedScene = preload("res://scenes/collection.tscn")
+var homeScene: PackedScene = preload("res://scenes/home.tscn")
+
 var currentScene: availableScenes
 
-@export var allCards: Array[PackedScene]
+var allCards: Array[PackedScene]
 
 func _ready() -> void:
+	var dir = DirAccess.open("res://assets/createdObjects/cards")
+	if dir:
+		dir.list_dir_begin()
+		var card = dir.get_next()
+		while card != "":
+			if not dir.current_is_dir():
+				allCards.append(load(dir.get_current_dir()+"/"+card))
+			card = dir.get_next()
+	else:
+		print("An error has occured. Path for cards is not found.")
+	
+	get_child(0).load_player()
+	
 	currentScene = availableScenes.HOME
+	self.add_child(homeScene.instantiate())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_SPACE and not currentScene == availableScenes.COLLECTION:
+		if event.pressed and event.keycode == KEY_C and currentScene != availableScenes.COLLECTION:
+			switch_scene(availableScenes.COLLECTION)
+		elif event.pressed and event.keycode == KEY_SPACE and currentScene != availableScenes.HOME:
+			switch_scene(availableScenes.HOME)
+		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.HOME:
+			#switch_scene(availableScenes.PACK)
+			pass
+
+func switch_scene(scene: availableScenes):
+	get_child(1).queue_free()
+	if scene == availableScenes.HOME:
+			currentScene = availableScenes.HOME
+			self.add_child(homeScene.instantiate())
+	elif scene == availableScenes.COLLECTION:
 			currentScene = availableScenes.COLLECTION
-			print("yes")
 			self.add_child(collectionScene.instantiate())

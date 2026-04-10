@@ -15,6 +15,16 @@ run/main_scene="uid://iyjrpsgqx8m7"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://assets/sprites/icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://assets/createdObjects/cards/": "green",
+"res://assets/sprites/": "purple",
+"res://assets/styleBox/": "pink",
+"res://scenes/": "gray",
+"res://scripts/": "orange"
+}
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
