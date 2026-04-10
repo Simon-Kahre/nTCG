@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://byjjebq6qijrk"]
+
+[ext_resource type="Script" uid="uid://8ceibesgs8dl" path="res://scripts/card.gd" id="1_05xys"]
+[ext_resource type="Texture2D" uid="uid://dvj3edad6jup1" path="res://assets/sprites/icon3.svg" id="2_05xys"]
+
+[node name="Card" type="Node2D" unique_id=214170236]
+script = ExtResource("1_05xys")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=813889126]
+position = Vector2(308, 297)
+scale = Vector2(1, 2)
+texture = ExtResource("2_05xys")
