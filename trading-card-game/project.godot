@@ -19,6 +19,7 @@ config/icon="res://assets/sprites/icon.svg"
 
 folder_colors={
 "res://assets/createdObjects/cards/": "green",
+"res://assets/createdObjects/packs/": "yellow",
 "res://assets/sprites/": "purple",
 "res://assets/styleBox/": "pink",
 "res://scenes/": "gray",
