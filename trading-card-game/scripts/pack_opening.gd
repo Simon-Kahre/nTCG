@@ -39,5 +39,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			open_pack(0)
 
 func open_pack(index: int):
-	var i = randi_range(0, len(packs[index].cardsInPack)-1)
-	player.cards.append(packs[index].cardsInPack[i])
+	var amountPerPack = 3
+	
+	for _count in range(0,amountPerPack):
+		var i = randi_range(0, len(packs[index].cardsInPack)-1)
+		player.cards.append(packs[index].cardsInPack[i])
