@@ -31,7 +31,7 @@ func _ready() -> void:
 	currentScene = availableScenes.HOME
 	self.add_child(homeScene.instantiate())
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_C and currentScene != availableScenes.COLLECTION:
 			switch_scene(availableScenes.COLLECTION)
