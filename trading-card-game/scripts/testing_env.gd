@@ -8,6 +8,7 @@ enum availableScenes {
 
 var collectionScene: PackedScene = preload("res://scenes/collection.tscn")
 var homeScene: PackedScene = preload("res://scenes/home.tscn")
+var packScene: PackedScene = preload("res://scenes/packs.tscn")
 
 var currentScene: availableScenes
 
@@ -36,9 +37,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			switch_scene(availableScenes.COLLECTION)
 		elif event.pressed and event.keycode == KEY_SPACE and currentScene != availableScenes.HOME:
 			switch_scene(availableScenes.HOME)
-		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.HOME:
-			#switch_scene(availableScenes.PACK)
-			pass
+		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.PACK:
+			switch_scene(availableScenes.PACK)
 
 func switch_scene(scene: availableScenes):
 	get_child(1).queue_free()
@@ -48,3 +48,6 @@ func switch_scene(scene: availableScenes):
 	elif scene == availableScenes.COLLECTION:
 			currentScene = availableScenes.COLLECTION
 			self.add_child(collectionScene.instantiate())
+	elif scene == availableScenes.PACK:
+			currentScene = availableScenes.PACK
+			self.add_child(packScene.instantiate())
