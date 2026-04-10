@@ -33,10 +33,10 @@ func override_styleboxes(button: Button):
 	button.add_theme_stylebox_override("hover", emptyColor)
 	button.add_theme_stylebox_override("normal", emptyColor)
 
-func _unhandled_key_input(event: InputEvent) -> void:
+""""func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.keycode == KEY_O and event.pressed:
-			open_pack(0)
+			open_pack(0)"""
 
 func open_pack(index: int):
 	var amountPerPack = 3
