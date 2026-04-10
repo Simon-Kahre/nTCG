@@ -4,12 +4,11 @@ var allCards: Array[PackedScene]
 
 func _ready() -> void:
 	allCards = get_parent().allCards
-	var pos = 100
+	#var pos = 100
 	for card in allCards:
 		var createdCard = card.instantiate()
-		var sprite = createdCard.get_child(0)
-		createdCard.remove_child(sprite)
-		sprite.position = Vector2(pos, 0)
-		self.add_child(sprite)
+		var sprite: Sprite2D = createdCard.get_child(0)
+		var button = Button.new()
+		button.set_button_icon(sprite.texture)
+		self.get_child(0).add_child(button)
 		createdCard.queue_free()
-		pos += 200
