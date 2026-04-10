@@ -19,5 +19,8 @@ func _ready() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.keycode == KEY_O and event.pressed:
-			var i = randi_range(0, len(packs[0].cardsInPack)-1)
-			player.cards.append(packs[0].cardsInPack[i])
+			open_pack(0)
+
+func open_pack(index: int):
+	var i = randi_range(0, len(packs[index].cardsInPack)-1)
+	player.cards.append(packs[index].cardsInPack[i])
