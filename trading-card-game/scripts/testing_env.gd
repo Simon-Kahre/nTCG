@@ -39,14 +39,14 @@ func _ready() -> void:
 	currentScene = availableScenes.HOME
 	self.add_child(homeScene.instantiate())
 
-func _unhandled_key_input(event: InputEvent) -> void:
+"""func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_C and currentScene != availableScenes.COLLECTION:
 			switch_scene(availableScenes.COLLECTION)
 		elif event.pressed and event.keycode == KEY_SPACE and currentScene != availableScenes.HOME:
 			switch_scene(availableScenes.HOME)
 		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.PACK:
-			switch_scene(availableScenes.PACK)
+			switch_scene(availableScenes.PACK)"""
 
 func call_scene_switch(newScene: String) -> void:
 	if newScene == "Collection" and currentScene != availableScenes.COLLECTION:
@@ -61,7 +61,7 @@ func switch_scene(scene: availableScenes):
 		if child is Node2D:
 			child.queue_free()
 			break
-	#get_child(1).queue_free()
+	
 	if scene == availableScenes.HOME:
 			currentScene = availableScenes.HOME
 			self.add_child(homeScene.instantiate())
