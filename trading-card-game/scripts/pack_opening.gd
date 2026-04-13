@@ -5,6 +5,8 @@ var player
 var pressColor: StyleBoxFlat = preload("res://assets/styleBox/collectionButton.tres")
 var emptyColor: StyleBoxEmpty = preload("res://assets/styleBox/collectionButtonEmpty.tres")
 
+@onready var grid: GridContainer = $GridContainer
+
 func _ready() -> void:
 	player = get_parent().find_child("Node")
 	var dir = DirAccess.open("res://assets/createdObjects/packs")
@@ -27,6 +29,10 @@ func _ready() -> void:
 		button.add_theme_stylebox_override("pressed", pressColor)
 		button.pressed.connect(open_pack.bind(i))
 		self.get_child(0).add_child(button)
+		
+	var gridSizeX = grid.get_combined_minimum_size().x
+	var screenSize = get_viewport_rect()
+	grid.scale = Vector2(screenSize.end[0]/gridSizeX, screenSize.end[0]/gridSizeX)
 
 func override_styleboxes(button: Button):
 	button.add_theme_stylebox_override("pressed", pressColor)
