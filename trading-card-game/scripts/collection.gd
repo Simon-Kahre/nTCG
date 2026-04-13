@@ -21,6 +21,7 @@ func _ready() -> void:
 		
 		override_styleboxes(button)
 		button.add_theme_stylebox_override("pressed", pressColor)
+		button.pressed.connect(enlarge_icon.bind(button))
 		self.get_child(0).add_child(button)
 		createdCard.queue_free()
 	
@@ -32,4 +33,9 @@ func override_styleboxes(button: Button):
 	button.add_theme_stylebox_override("pressed", pressColor)
 	button.add_theme_stylebox_override("hover", emptyColor)
 	button.add_theme_stylebox_override("normal", emptyColor)
-	
+
+func enlarge_icon(button: Button):
+	var sprite = Sprite2D.new()
+	sprite.texture = button.icon
+	var color = button.get_theme_color("icon_normal_color")
+	print(color)
