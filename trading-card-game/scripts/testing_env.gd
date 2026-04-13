@@ -18,8 +18,6 @@ var allCards: Array[PackedScene]
 
 func _ready() -> void:
 	var screenSize = get_viewport_rect()
-	print(screenSize.end)
-	
 	bottomButtons.scale = Vector2(screenSize.end[0]/bottomButtons.size.x,screenSize.end[0]/bottomButtons.size.x)
 	bottomButtons.position.y = screenSize.end[1]-(40*bottomButtons.scale.y)
 
