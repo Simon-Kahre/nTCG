@@ -8,7 +8,7 @@ var emptyColor: StyleBoxEmpty = preload("res://assets/styleBox/collectionButtonE
 func _ready() -> void:
 	allCards = get_parent().allCards
 	var collectedCards = get_parent().find_child("Node").cards
-	#var pos = 100
+	
 	for card in allCards:
 		var createdCard = card.instantiate()
 		var sprite: Sprite2D = createdCard.get_child(0)
