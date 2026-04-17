@@ -49,14 +49,12 @@ func enlarge_icon(button: Button):
 		var sprite = Sprite2D.new()
 		sprite.texture = button.icon
 		var color = button.get_theme_color("icon_normal_color")
-		print(color)
 		sprite.modulate = color
 		sprite.global_position = get_viewport_rect().end/2
 		sprite.scale = Vector2.ONE * 4
 		sprite.name = "Large Card"
 		for child in grid.get_children():
 			child.disabled = true
-		
 		self.add_child(sprite)
 
 func _unhandled_input(event: InputEvent) -> void:
