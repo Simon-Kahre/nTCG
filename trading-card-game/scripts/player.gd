@@ -6,6 +6,8 @@ extends Node
 var allCards: Array[PackedScene]
 var collectedCards = {}
 
+var currentDeck: Array[PackedScene]
+
 func load_player() -> void:
 	allCards = get_parent().allCards
 	
@@ -14,5 +16,3 @@ func load_player() -> void:
 	
 	for card in cards:
 		collectedCards[card] += 1
-		var createdCard = card.instantiate()
-		#self.add_child(createdCard)
