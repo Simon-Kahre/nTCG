@@ -2,7 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://lbk3qbgbtooc" path="res://assets/sprites/icon2.svg" id="1_4r6s1"]
 [ext_resource type="Script" uid="uid://cotu53j2bnyee" path="res://scripts/combatStage.gd" id="1_k070p"]
+[ext_resource type="Script" uid="uid://8ceibesgs8dl" path="res://scripts/card.gd" id="2_0qy8o"]
+[ext_resource type="Texture2D" uid="uid://dvj3edad6jup1" path="res://assets/sprites/icon3.svg" id="2_akg4l"]
 [ext_resource type="Script" uid="uid://bi5qrt6m4ijga" path="res://scripts/locationScore.gd" id="2_hrlpu"]
+[ext_resource type="Texture2D" uid="uid://4nrimwk7qrxg" path="res://assets/sprites/icon.svg" id="6_70oqa"]
 
 [node name="Main" type="Node2D" unique_id=1450386294]
 
@@ -15,12 +18,20 @@ script = ExtResource("1_k070p")
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=300874963]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=1892624808]
+[node name="OpponentCards" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=1892624808]
 layout_mode = 2
+columns = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=906990500]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/OpponentCards" unique_id=963398339]
+layout_mode = 2
+texture = ExtResource("2_akg4l")
+script = ExtResource("2_0qy8o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=906990500 node_paths=PackedStringArray("opCards", "playerCards")]
 layout_mode = 2
 script = ExtResource("2_hrlpu")
+opCards = NodePath("../OpponentCards")
+playerCards = NodePath("../PlayerCards")
 
 [node name="OpponentScore" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1219656084]
 layout_mode = 2
@@ -36,5 +47,11 @@ layout_mode = 2
 text = "Another number"
 horizontal_alignment = 1
 
-[node name="GridContainer6" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=506620635]
+[node name="PlayerCards" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=506620635]
 layout_mode = 2
+columns = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/VBoxContainer/PlayerCards" unique_id=566245149]
+layout_mode = 2
+texture = ExtResource("6_70oqa")
+script = ExtResource("2_0qy8o")
