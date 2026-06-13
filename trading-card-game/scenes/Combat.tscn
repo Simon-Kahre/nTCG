@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dwkud57dgan2r"]
+
+[ext_resource type="Texture2D" uid="uid://lbk3qbgbtooc" path="res://assets/sprites/icon2.svg" id="1_4r6s1"]
+[ext_resource type="Script" uid="uid://cotu53j2bnyee" path="res://scripts/combatStage.gd" id="1_k070p"]
+[ext_resource type="Script" uid="uid://bi5qrt6m4ijga" path="res://scripts/locationScore.gd" id="2_hrlpu"]
+
+[node name="Main" type="Node2D" unique_id=1450386294]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1135887533]
+offset_right = 564.0
+offset_bottom = 136.0
+theme_override_constants/separation = 90
+script = ExtResource("1_k070p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=300874963]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=1892624808]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=906990500]
+layout_mode = 2
+script = ExtResource("2_hrlpu")
+
+[node name="OpponentScore" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1219656084]
+layout_mode = 2
+text = "A number"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1761241381]
+layout_mode = 2
+texture = ExtResource("1_4r6s1")
+
+[node name="PlayerScore" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1776224206]
+layout_mode = 2
+text = "Another number"
+horizontal_alignment = 1
+
+[node name="GridContainer6" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=506620635]
+layout_mode = 2
