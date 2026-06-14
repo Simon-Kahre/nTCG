@@ -80,7 +80,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			draggedCard = selectedCard
 			orgPos = selectedCard.position
 	
-	elif event is InputEventMouseButton and event.is_released() and event.button_index == 1:
-		draggedCard.position = orgPos
+	elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and draggedCard:
+		if !overSlot:
+			draggedCard.position = orgPos
+		else:
+			var tempCard = TextureRect.new()
+			tempCard.texture = draggedCard.get_child(0).texture
+			tempCard.set_script(draggedCard.get_script())
+			overSlot.add_child(tempCard)
+			draggedCard.free()
+			
+			center_cards()
+			
+			overSlot.get_parent().get_child(1).update_score()
 		draggedCard = null
 		orgPos = Vector2.ZERO
