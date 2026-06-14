@@ -3,9 +3,18 @@
 [ext_resource type="Script" uid="uid://8ceibesgs8dl" path="res://scripts/card.gd" id="1_mm81v"]
 [ext_resource type="Texture2D" uid="uid://b3spbgarptllo" path="res://assets/sprites/icon4.svg" id="2_mm81v"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm81v"]
+
 [node name="Card" type="Node2D" unique_id=214170236]
 script = ExtResource("1_mm81v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=813889126]
 scale = Vector2(1, 2)
 texture = ExtResource("2_mm81v")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1530453939]
+scale = Vector2(1, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1387268152]
+scale = Vector2(6.4, 6.4)
+shape = SubResource("RectangleShape2D_mm81v")
