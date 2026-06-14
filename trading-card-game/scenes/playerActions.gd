@@ -1,7 +1,6 @@
 extends Node2D
 
 
-var playerCards: Array[BasicCard]
 @export var testingCards: Array[PackedScene]
 var playerHand: Node2D
 
@@ -18,12 +17,11 @@ func add_testing_cards():
 	for card in testingCards:
 		var tempCard = card.instantiate()
 		
-		playerCards.append(tempCard)
 		playerHand.add_child(tempCard)
 
 
 func center_cards():
-	var offset: int = -int((50.0 * (float(len(playerCards)) / 2.0)))
-	for card in playerCards:
+	var offset: int = -int((50.0 * (float(playerHand.get_child_count()) / 2.0)))
+	for card in playerHand.get_children():
 		card.position.x = offset
 		offset += 50
