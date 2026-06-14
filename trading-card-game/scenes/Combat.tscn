@@ -15,7 +15,7 @@
 
 [node name="Combat" type="Node2D" unique_id=1450386294]
 script = ExtResource("1_3q7sh")
-testingCards = Array[PackedScene]([ExtResource("2_mak3c"), ExtResource("3_3q7sh"), ExtResource("4_spaix")])
+testingCards = Array[PackedScene]([ExtResource("2_mak3c"), ExtResource("3_3q7sh"), ExtResource("4_spaix"), ExtResource("2_mak3c")])
 
 [node name="CombatStage" type="HBoxContainer" parent="." unique_id=1135887533]
 offset_right = 564.0
