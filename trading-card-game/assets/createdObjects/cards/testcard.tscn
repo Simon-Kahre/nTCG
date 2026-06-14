@@ -13,6 +13,7 @@ scale = Vector2(1, 2)
 texture = ExtResource("2_3wlku")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1892986670]
+scale = Vector2(1, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=264638645]
 scale = Vector2(6.4, 6.4)
