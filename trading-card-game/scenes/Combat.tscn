@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
 [ext_resource type="Texture2D" uid="uid://4nrimwk7qrxg" path="res://assets/sprites/icon.svg" id="6_70oqa"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spaix"]
+
 [node name="Combat" type="Node2D" unique_id=1450386294]
 script = ExtResource("1_3q7sh")
 testingCards = Array[PackedScene]([ExtResource("2_mak3c"), ExtResource("3_3q7sh"), ExtResource("4_spaix")])
@@ -61,5 +63,12 @@ columns = 2
 layout_mode = 2
 texture = ExtResource("6_70oqa")
 script = ExtResource("2_0qy8o")
+
+[node name="Area2D" type="Area2D" parent="CombatStage/VBoxContainer/PlayerCards" unique_id=245012481]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStage/VBoxContainer/PlayerCards/Area2D" unique_id=1087649929]
+position = Vector2(64, 149.42)
+scale = Vector2(6.4, 15)
+shape = SubResource("RectangleShape2D_spaix")
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=851330119]

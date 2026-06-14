@@ -5,14 +5,22 @@ extends Node2D
 var playerHand: Node2D
 
 var hoveringCards: Array[BasicCard]
+var overSlot: GridContainer = null
 
 var draggedCard: BasicCard = null
 var orgPos: Vector2 = Vector2.ZERO
+
+@onready var combatStage: HBoxContainer = $CombatStage
 
 
 func _ready() -> void:
 	playerHand = self.find_child("PlayerHand")
 	playerHand.position = Vector2(get_viewport_rect().end.x/2, get_viewport_rect().end.y - 200)
+	
+	for vBox in combatStage.get_children():
+		var playerSlot = vBox.find_child("PlayerCards").find_child("Area2D")
+		playerSlot.connect("mouse_entered", entered_slot.bind(vBox.find_child("PlayerCards")))
+		playerSlot.connect("mouse_exited", left_slot)
 	
 	add_testing_cards()
 	center_cards()
@@ -36,6 +44,14 @@ func remove_hovering_card(card: BasicCard):
 	hoveringCards.erase(card)
 
 
+func entered_slot(slot: GridContainer):
+	overSlot = slot
+
+
+func left_slot():
+	overSlot = null
+
+
 func center_cards():
 	var offset: int = -int((50.0 * (float(playerHand.get_child_count()) / 2.0)))
 	var zIndex: int = 0
@@ -46,9 +62,10 @@ func center_cards():
 		zIndex += 1
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if draggedCard:
 		draggedCard.global_position = get_global_mouse_position()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:

@@ -9,7 +9,8 @@ var opScore: int = 1
 func update_score() -> void:
 	playerScore = 0
 	for card in playerCards.get_children():
-		playerScore += card.atk
+		if card is BasicCard:
+			playerScore += card.atk
 	
 	opScore = 0
 	for card in opCards.get_children():
