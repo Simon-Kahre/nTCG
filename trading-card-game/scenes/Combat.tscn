@@ -1,57 +1,79 @@
 [gd_scene format=3 uid="uid://dwkud57dgan2r"]
 
+[ext_resource type="Script" uid="uid://cbj6y6l0uiqko" path="res://scripts/playerActions.gd" id="1_3q7sh"]
 [ext_resource type="Texture2D" uid="uid://lbk3qbgbtooc" path="res://assets/sprites/icon2.svg" id="1_4r6s1"]
 [ext_resource type="Script" uid="uid://cotu53j2bnyee" path="res://scripts/combatStage.gd" id="1_k070p"]
 [ext_resource type="Script" uid="uid://8ceibesgs8dl" path="res://scripts/card.gd" id="2_0qy8o"]
 [ext_resource type="Texture2D" uid="uid://dvj3edad6jup1" path="res://assets/sprites/icon3.svg" id="2_akg4l"]
 [ext_resource type="Script" uid="uid://bi5qrt6m4ijga" path="res://scripts/locationScore.gd" id="2_hrlpu"]
-[ext_resource type="Texture2D" uid="uid://4nrimwk7qrxg" path="res://assets/sprites/icon.svg" id="6_70oqa"]
+[ext_resource type="PackedScene" uid="uid://2y6gt8te51gf" path="res://assets/createdObjects/cards/testcard2.tscn" id="2_mak3c"]
+[ext_resource type="PackedScene" uid="uid://chcbavh6ckvuy" path="res://assets/createdObjects/cards/testcard4.tscn" id="3_3q7sh"]
+[ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
 
-[node name="Main" type="Node2D" unique_id=1450386294]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3q7sh"]
+load_path = "res://.godot/imported/icon.svg-00a55f41757400f7387d4069be498893.ctex"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1135887533]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_spaix"]
+
+[node name="Combat" type="Node2D" unique_id=1450386294]
+script = ExtResource("1_3q7sh")
+testingCards = Array[PackedScene]([ExtResource("2_mak3c"), ExtResource("3_3q7sh"), ExtResource("4_spaix"), ExtResource("2_mak3c")])
+
+[node name="CombatStage" type="HBoxContainer" parent="." unique_id=1135887533]
 offset_right = 564.0
 offset_bottom = 136.0
 theme_override_constants/separation = 90
 script = ExtResource("1_k070p")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=300874963]
+[node name="VBoxContainer" type="VBoxContainer" parent="CombatStage" unique_id=300874963]
 layout_mode = 2
 
-[node name="OpponentCards" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=1892624808]
+[node name="OpponentCards" type="GridContainer" parent="CombatStage/VBoxContainer" unique_id=1892624808]
 layout_mode = 2
 columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/OpponentCards" unique_id=963398339]
+[node name="TextureRect" type="TextureRect" parent="CombatStage/VBoxContainer/OpponentCards" unique_id=963398339]
 layout_mode = 2
 texture = ExtResource("2_akg4l")
 script = ExtResource("2_0qy8o")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=906990500 node_paths=PackedStringArray("opCards", "playerCards")]
+[node name="VBoxContainer" type="VBoxContainer" parent="CombatStage/VBoxContainer" unique_id=906990500 node_paths=PackedStringArray("opCards", "playerCards")]
 layout_mode = 2
+size_flags_horizontal = 0
 script = ExtResource("2_hrlpu")
 opCards = NodePath("../OpponentCards")
 playerCards = NodePath("../PlayerCards")
 
-[node name="OpponentScore" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1219656084]
+[node name="OpponentScore" type="Label" parent="CombatStage/VBoxContainer/VBoxContainer" unique_id=1219656084]
 layout_mode = 2
 text = "A number"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1761241381]
+[node name="TextureRect" type="TextureRect" parent="CombatStage/VBoxContainer/VBoxContainer" unique_id=1761241381]
 layout_mode = 2
 texture = ExtResource("1_4r6s1")
 
-[node name="PlayerScore" type="Label" parent="HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1776224206]
+[node name="PlayerScore" type="Label" parent="CombatStage/VBoxContainer/VBoxContainer" unique_id=1776224206]
 layout_mode = 2
 text = "Another number"
 horizontal_alignment = 1
 
-[node name="PlayerCards" type="GridContainer" parent="HBoxContainer/VBoxContainer" unique_id=506620635]
+[node name="PlayerCards" type="GridContainer" parent="CombatStage/VBoxContainer" unique_id=506620635]
 layout_mode = 2
 columns = 2
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer/VBoxContainer/PlayerCards" unique_id=566245149]
+[node name="TextureRect2" type="TextureRect" parent="CombatStage/VBoxContainer/PlayerCards" unique_id=566245149]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("6_70oqa")
+texture = SubResource("CompressedTexture2D_3q7sh")
+expand_mode = 1
 script = ExtResource("2_0qy8o")
+
+[node name="Area2D" type="Area2D" parent="CombatStage/VBoxContainer/PlayerCards" unique_id=245012481]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CombatStage/VBoxContainer/PlayerCards/Area2D" unique_id=1087649929]
+position = Vector2(64, 149.42)
+scale = Vector2(6.4, 15)
+shape = SubResource("RectangleShape2D_spaix")
+
+[node name="PlayerHand" type="Node2D" parent="." unique_id=851330119]
