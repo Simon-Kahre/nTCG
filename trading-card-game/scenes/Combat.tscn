@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://2y6gt8te51gf" path="res://assets/createdObjects/cards/testcard2.tscn" id="2_mak3c"]
 [ext_resource type="PackedScene" uid="uid://chcbavh6ckvuy" path="res://assets/createdObjects/cards/testcard4.tscn" id="3_3q7sh"]
 [ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
-[ext_resource type="Texture2D" uid="uid://4nrimwk7qrxg" path="res://assets/sprites/icon.svg" id="6_70oqa"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3q7sh"]
+load_path = "res://.godot/imported/icon.svg-00a55f41757400f7387d4069be498893.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spaix"]
 
@@ -37,6 +39,7 @@ script = ExtResource("2_0qy8o")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CombatStage/VBoxContainer" unique_id=906990500 node_paths=PackedStringArray("opCards", "playerCards")]
 layout_mode = 2
+size_flags_horizontal = 0
 script = ExtResource("2_hrlpu")
 opCards = NodePath("../OpponentCards")
 playerCards = NodePath("../PlayerCards")
@@ -60,8 +63,10 @@ layout_mode = 2
 columns = 2
 
 [node name="TextureRect2" type="TextureRect" parent="CombatStage/VBoxContainer/PlayerCards" unique_id=566245149]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("6_70oqa")
+texture = SubResource("CompressedTexture2D_3q7sh")
+expand_mode = 1
 script = ExtResource("2_0qy8o")
 
 [node name="Area2D" type="Area2D" parent="CombatStage/VBoxContainer/PlayerCards" unique_id=245012481]

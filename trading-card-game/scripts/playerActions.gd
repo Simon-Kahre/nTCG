@@ -85,6 +85,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			var tempCard = TextureRect.new()
 			tempCard.texture = draggedCard.get_child(0).texture
 			tempCard.set_script(draggedCard.get_script())
+			tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			tempCard.custom_minimum_size = Vector2(64,64)
 			overSlot.add_child(tempCard)
 			draggedCard.free()
 			
