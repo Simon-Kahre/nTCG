@@ -6,6 +6,9 @@ var playerHand: Node2D
 
 var hoveringCards: Array[BasicCard]
 
+var draggedCard: BasicCard = null
+var orgPos: Vector2 = Vector2.ZERO
+
 
 func _ready() -> void:
 	playerHand = self.find_child("PlayerHand")
@@ -43,8 +46,12 @@ func center_cards():
 		zIndex += 1
 
 
+func _process(delta: float) -> void:
+	if draggedCard:
+		draggedCard.global_position = get_global_mouse_position()
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_pressed() and event.button_index == 1:
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		var selectedCard = null
 		for card in hoveringCards:
 			if selectedCard:
@@ -52,5 +59,11 @@ func _unhandled_input(event: InputEvent) -> void:
 					selectedCard = card
 			else:
 				selectedCard = card
-		
-		print(selectedCard)
+		if selectedCard:
+			draggedCard = selectedCard
+			orgPos = selectedCard.position
+	
+	elif event is InputEventMouseButton and event.is_released() and event.button_index == 1:
+		draggedCard.position = orgPos
+		draggedCard = null
+		orgPos = Vector2.ZERO
