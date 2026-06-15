@@ -7,7 +7,7 @@ var playerHand: Node2D
 var hoveringCards: Array[BasicCard]
 var overSlot: GridContainer = null
 
-var draggedCard: BasicCard = null
+var draggedCard: Node2D = null
 var orgPos: Vector2 = Vector2.ZERO
 
 @onready var combatStage: HBoxContainer = $CombatStage
@@ -28,11 +28,16 @@ func _ready() -> void:
 	var confirmButton: Button = self.find_child("Confirm")
 	confirmButton.position = Vector2(get_viewport_rect().end.x - confirmButton.size.x, get_viewport_rect().end.y - confirmButton.size.y)
 	confirmButton.connect("pressed", self.find_child("CombatStage").confirm_placement)
+	
+	var reset: Button = self.find_child("Reset")
+	reset.position = Vector2(0, get_viewport_rect().end.y - reset.size.y)
+	reset.connect("pressed", self.find_child("CombatStage").reset_placement)
 
 
 func add_testing_cards():
 	for card in testingCards:
 		var tempCard = card.instantiate()
+		tempCard.scenePath = card.resource_path
 		
 		playerHand.add_child(tempCard)
 		
@@ -60,6 +65,7 @@ func center_cards():
 	var offset: int = -int((50.0 * (float(playerHand.get_child_count()) / 2.0)))
 	var zIndex: int = 0
 	for card in playerHand.get_children():
+		card.position.y = 0
 		card.position.x = offset
 		card.z_index = zIndex
 		offset += 50
@@ -92,6 +98,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			tempCard.custom_minimum_size = Vector2(64,64)
 			overSlot.add_child(tempCard)
+			tempCard.scenePath = draggedCard.scenePath
 			draggedCard.free()
 			
 			center_cards()

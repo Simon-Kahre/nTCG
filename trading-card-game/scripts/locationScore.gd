@@ -11,6 +11,7 @@ func update_score() -> void:
 	for card in playerCards.get_children():
 		if card is BasicCard:
 			playerScore += card.atk
+			card.justPlaced = false
 	
 	opScore = 0
 	for card in opCards.get_children():
