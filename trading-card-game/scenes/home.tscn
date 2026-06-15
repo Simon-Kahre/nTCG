@@ -16,3 +16,5 @@ text = "Challenge Player"
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=451314417]
 layout_mode = 2
 text = "Change Deck"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="challenge_player"]
