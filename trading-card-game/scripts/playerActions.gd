@@ -24,6 +24,10 @@ func _ready() -> void:
 	
 	add_testing_cards()
 	center_cards()
+	
+	var confirmButton: Button = self.find_child("Confirm")
+	confirmButton.position = Vector2(get_viewport_rect().end.x - confirmButton.size.x, get_viewport_rect().end.y - confirmButton.size.y)
+	confirmButton.connect("pressed", self.find_child("CombatStage").confirm_placement)
 
 
 func add_testing_cards():
@@ -92,7 +96,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			center_cards()
 			
-			overSlot.get_parent().get_child(1).update_score()
+			#overSlot.get_parent().get_child(1).update_score()
 		else:
 			draggedCard.position = orgPos
 		draggedCard = null
