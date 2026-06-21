@@ -16,3 +16,14 @@ text = "Challenge Player"
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=451314417]
 layout_mode = 2
 text = "Change Deck"
+
+[node name="Host" type="Button" parent="VBoxContainer" unique_id=1559054634]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="VBoxContainer" unique_id=152644991]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="VBoxContainer/Host" to="." method="host_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Join" to="." method="join_button_pressed"]
