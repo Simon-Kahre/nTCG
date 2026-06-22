@@ -83,6 +83,16 @@ shape = SubResource("RectangleShape2D_spaix")
 
 [node name="PlayerHand" type="Node2D" parent="Combat" unique_id=851330119]
 
+[node name="Confirm" type="Button" parent="Combat" unique_id=856894045]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Confirm"
+
+[node name="Reset" type="Button" parent="Combat" unique_id=1119964765]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Reset"
+
 [node name="Host" type="Button" parent="." unique_id=1436808931]
 offset_left = 310.0
 offset_top = 186.0
@@ -99,13 +109,3 @@ text = "Join"
 
 [connection signal="pressed" from="Host" to="." method="host_button_pressed"]
 [connection signal="pressed" from="Join" to="." method="join_button_pressed"]
-
-[node name="Confirm" type="Button" parent="Combat" unique_id=856894045]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Confirm"
-
-[node name="Reset" type="Button" parent="Combat" unique_id=1119964765]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Reset"

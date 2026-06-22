@@ -31,5 +31,5 @@ func disable_buttons():
 	$Host.queue_free()
 	$Join.queue_free()
 
-func _on_peer_connected(peerId):
+func _on_peer_connected(_peerId):
 	print("Player joined!")
