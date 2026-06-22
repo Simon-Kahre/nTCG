@@ -2,6 +2,9 @@ extends Node2D
 
 var peer = ENetMultiplayerPeer.new()
 
+var confirmCount: int = 0
+var turnCount: int = 1
+
 const PORT = 12345
 const SERVERADDRESS = "localhost"
 
@@ -33,3 +36,10 @@ func disable_buttons():
 
 func _on_peer_connected(_peerId):
 	print("Player joined!")
+
+@rpc("any_peer","call_local","reliable")
+func player_confirmed():
+	confirmCount += 1
+	if confirmCount == 2:
+		turnCount += 1
+		confirmCount = 0
