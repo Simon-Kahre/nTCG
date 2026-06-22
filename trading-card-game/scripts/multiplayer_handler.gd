@@ -15,18 +15,14 @@ func _ready() -> void:
 
 func host_button_pressed():
 	disable_buttons()
-	
 	peer.create_server(PORT)
-	
 	multiplayer.multiplayer_peer = peer
-	
 	multiplayer.peer_connected.connect(_on_peer_connected)
+	
 
 func join_button_pressed():
 	disable_buttons()
-	
 	peer.create_client(SERVERADDRESS, PORT)
-	
 	multiplayer.multiplayer_peer = peer
 
 func disable_buttons():
@@ -34,8 +30,14 @@ func disable_buttons():
 	$Host.queue_free()
 	$Join.queue_free()
 
-func _on_peer_connected(_peerId):
+func _on_peer_connected(peerId):
 	print("Player joined!")
+	print(peerId)
+	print(multiplayer.get_peers())
+	print(multiplayer.get_unique_id())
+	$Combat/CombatStage.rpc_id(peerId, "set_opponent_id", 1)
+	$Combat/CombatStage.rpc_id(1, "set_opponent_id", peerId)
+	$Combat/CombatStage.enable_buttons.rpc()
 
 @rpc("any_peer","call_local","reliable")
 func player_confirmed():

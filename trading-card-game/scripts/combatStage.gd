@@ -1,7 +1,10 @@
 extends HBoxContainer
 
+var opponentId: int = 0
+
 func _ready() -> void:
 	self.position = Vector2(self.position.x, (get_viewport_rect().end.y)/2 - self.size.y )
+	disable_buttons()
 
 func confirm_placement():
 	for vBox in self.get_children():
@@ -28,3 +31,7 @@ func disable_buttons():
 func enable_buttons():
 	$"../Confirm".disabled = false
 	$"../Reset".disabled = false
+
+@rpc("any_peer","call_local")
+func set_opponent_id(id: int):
+	opponentId = id
