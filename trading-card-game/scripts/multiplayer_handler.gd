@@ -40,6 +40,8 @@ func _on_peer_connected(_peerId):
 @rpc("any_peer","call_local","reliable")
 func player_confirmed():
 	confirmCount += 1
+	print(confirmCount)
 	if confirmCount == 2:
 		turnCount += 1
 		confirmCount = 0
+		$Combat/CombatStage.enable_buttons.rpc()

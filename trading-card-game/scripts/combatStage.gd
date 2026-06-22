@@ -6,8 +6,8 @@ func _ready() -> void:
 func confirm_placement():
 	for vBox in self.get_children():
 		vBox.get_child(1).update_score()
+	self.disable_buttons()
 	self.get_parent().get_parent().player_confirmed.rpc_id(1)
-
 
 func reset_placement():
 	for vBox in self.get_children():
@@ -19,4 +19,12 @@ func reset_placement():
 					self.get_parent().find_child("PlayerHand").add_child(newCard)
 					self.get_parent().center_cards()
 					card.free()
-					
+
+func disable_buttons():
+	$"../Confirm".disabled = true
+	$"../Reset".disabled = true
+
+@rpc("any_peer","call_local")
+func enable_buttons():
+	$"../Confirm".disabled = false
+	$"../Reset".disabled = false
