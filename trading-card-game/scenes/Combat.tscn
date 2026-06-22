@@ -77,3 +77,13 @@ scale = Vector2(6.4, 15)
 shape = SubResource("RectangleShape2D_spaix")
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=851330119]
+
+[node name="Confirm" type="Button" parent="." unique_id=856894045]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Confirm"
+
+[node name="Reset" type="Button" parent="." unique_id=1119964765]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Reset"
