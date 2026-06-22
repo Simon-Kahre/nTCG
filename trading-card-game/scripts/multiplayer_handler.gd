@@ -46,4 +46,5 @@ func player_confirmed():
 	if confirmCount == 2:
 		turnCount += 1
 		confirmCount = 0
+		$Combat/CombatStage.update_opponent_cards.rpc()
 		$Combat/CombatStage.enable_buttons.rpc()

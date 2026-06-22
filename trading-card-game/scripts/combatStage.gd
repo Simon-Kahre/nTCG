@@ -7,8 +7,8 @@ func _ready() -> void:
 	disable_buttons()
 
 func confirm_placement():
-	for vBox in self.get_children():
-		vBox.get_child(1).update_score()
+	#for vBox in self.get_children():
+		#vBox.get_child(1).update_score()
 	self.disable_buttons()
 	self.get_parent().get_parent().player_confirmed.rpc_id(1)
 
@@ -35,3 +35,11 @@ func enable_buttons():
 @rpc("any_peer","call_local")
 func set_opponent_id(id: int):
 	opponentId = id
+
+@rpc("any_peer","call_local")
+func update_opponent_cards():
+	for vBox in self.get_children():
+		for card in vBox.find_child("PlayerCards").get_children():
+			if card is BasicCard:
+				if card.justPlaced:
+					vBox.get_child(1).rpc_id(opponentId, "add_opponent_card", card.scenePath)
