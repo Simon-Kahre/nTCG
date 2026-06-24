@@ -35,7 +35,13 @@ func add_opponent_card(cardPath: String):
 	tempCard.custom_minimum_size = Vector2(64,64)
 	tempCard.offset_transform_enabled = true
 	tempCard.offset_transform_rotation = PI
+	tempCard.size.x
 	self.get_parent().find_child("OpponentCards").add_child(tempCard)
 
+func recenter_location():
+	self.get_parent().offset_transform_position = Vector2(0, -self.get_parent().find_child("OpponentCards").size.y)
+
 func _ready() -> void:
+	self.get_parent().offset_transform_enabled = true
+	self.get_parent().find_child("OpponentCards").connect("resized", self.recenter_location)
 	update_score()
