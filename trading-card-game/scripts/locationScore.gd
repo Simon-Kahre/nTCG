@@ -6,6 +6,7 @@ extends VBoxContainer
 var playerScore: int = 0
 var opScore: int = 1
 
+@rpc("any_peer", "call_local")
 func update_score() -> void:
 	playerScore = 0
 	for card in playerCards.get_children():
@@ -33,8 +34,6 @@ func add_opponent_card(cardPath: String):
 	tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tempCard.custom_minimum_size = Vector2(64,64)
 	self.get_parent().find_child("OpponentCards").add_child(tempCard)
-	
-	update_score()
 
 func _ready() -> void:
 	update_score()

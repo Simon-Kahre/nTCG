@@ -43,3 +43,4 @@ func update_opponent_cards():
 			if card is BasicCard:
 				if card.justPlaced:
 					vBox.get_child(1).rpc_id(opponentId, "add_opponent_card", card.scenePath)
+		vBox.get_child(1).rpc_id(opponentId, "update_score")
