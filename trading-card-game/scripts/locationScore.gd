@@ -33,6 +33,8 @@ func add_opponent_card(cardPath: String):
 	tempCard.set_script(card.get_script())
 	tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tempCard.custom_minimum_size = Vector2(64,64)
+	tempCard.offset_transform_enabled = true
+	tempCard.offset_transform_rotation = PI
 	self.get_parent().find_child("OpponentCards").add_child(tempCard)
 
 func _ready() -> void:
