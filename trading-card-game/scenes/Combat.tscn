@@ -4,16 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://lbk3qbgbtooc" path="res://assets/sprites/icon2.svg" id="1_4r6s1"]
 [ext_resource type="Script" uid="uid://cotu53j2bnyee" path="res://scripts/combatStage.gd" id="1_k070p"]
 [ext_resource type="Script" uid="uid://dmjhklby8twkv" path="res://scripts/multiplayer_handler.gd" id="1_t74xm"]
-[ext_resource type="Script" uid="uid://8ceibesgs8dl" path="res://scripts/card.gd" id="2_0qy8o"]
-[ext_resource type="Texture2D" uid="uid://dvj3edad6jup1" path="res://assets/sprites/icon3.svg" id="2_akg4l"]
 [ext_resource type="Script" uid="uid://bi5qrt6m4ijga" path="res://scripts/locationScore.gd" id="2_hrlpu"]
 [ext_resource type="PackedScene" uid="uid://2y6gt8te51gf" path="res://assets/createdObjects/cards/testcard2.tscn" id="2_mak3c"]
 [ext_resource type="PackedScene" uid="uid://chcbavh6ckvuy" path="res://assets/createdObjects/cards/testcard4.tscn" id="3_3q7sh"]
 [ext_resource type="PackedScene" uid="uid://byjjebq6qijrk" path="res://assets/createdObjects/cards/testcard3.tscn" id="3_spaix"]
 [ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3q7sh"]
-load_path = "res://.godot/imported/icon.svg-00a55f41757400f7387d4069be498893.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spaix"]
 
@@ -35,14 +30,9 @@ layout_mode = 2
 
 [node name="OpponentCards" type="GridContainer" parent="Combat/CombatStage/VBoxContainer" unique_id=1892624808]
 layout_mode = 2
+offset_transform_enabled = true
+offset_transform_rotation = 3.1415927
 columns = 2
-
-[node name="TextureRect" type="TextureRect" parent="Combat/CombatStage/VBoxContainer/OpponentCards" unique_id=963398339]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture = ExtResource("2_akg4l")
-expand_mode = 1
-script = ExtResource("2_0qy8o")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Combat/CombatStage/VBoxContainer" unique_id=906990500 node_paths=PackedStringArray("opCards", "playerCards")]
 layout_mode = 2
@@ -68,13 +58,6 @@ horizontal_alignment = 1
 [node name="PlayerCards" type="GridContainer" parent="Combat/CombatStage/VBoxContainer" unique_id=506620635]
 layout_mode = 2
 columns = 2
-
-[node name="TextureRect2" type="TextureRect" parent="Combat/CombatStage/VBoxContainer/PlayerCards" unique_id=566245149]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_3q7sh")
-expand_mode = 1
-script = ExtResource("2_0qy8o")
 
 [node name="Area2D" type="Area2D" parent="Combat/CombatStage/VBoxContainer/PlayerCards" unique_id=245012481]
 
