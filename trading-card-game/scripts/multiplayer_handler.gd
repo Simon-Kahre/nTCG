@@ -31,10 +31,6 @@ func disable_buttons():
 	$Join.queue_free()
 
 func _on_peer_connected(peerId):
-	print("Player joined!")
-	print(peerId)
-	print(multiplayer.get_peers())
-	print(multiplayer.get_unique_id())
 	$Combat/CombatStage.rpc_id(peerId, "set_opponent_id", 1)
 	$Combat/CombatStage.rpc_id(1, "set_opponent_id", peerId)
 	$Combat/CombatStage.enable_buttons.rpc()
@@ -42,7 +38,6 @@ func _on_peer_connected(peerId):
 @rpc("any_peer","call_local","reliable")
 func player_confirmed():
 	confirmCount += 1
-	print(confirmCount)
 	if confirmCount == 2:
 		turnCount += 1
 		confirmCount = 0
