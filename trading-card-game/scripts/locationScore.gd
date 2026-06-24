@@ -33,6 +33,8 @@ func add_opponent_card(cardPath: String):
 	tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tempCard.custom_minimum_size = Vector2(64,64)
 	self.get_parent().find_child("OpponentCards").add_child(tempCard)
+	
+	update_score()
 
 func _ready() -> void:
 	update_score()
