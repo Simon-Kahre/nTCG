@@ -33,11 +33,11 @@ func finished():
 			finalDeck.append(packedScene)
 	
 	if enoughCards:
-		self.get_parent().get_parent().find_child("Node").currentDeck = finalDeck
+		Player.currentDeck = finalDeck
 		self.get_parent().finish_deck()
 
 func add_cards():
-	for card in self.get_parent().get_parent().find_child("Node").cards:
+	for card in Player.cards:
 		var tempCard = card.instantiate()
 		tempCard.scenePath = card.resource_path
 		

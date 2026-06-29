@@ -1,6 +1,5 @@
 extends Node2D
 
-var allCards: Array[PackedScene]
 var pressColor: StyleBoxFlat = preload("res://assets/styleBox/collectionButton.tres")
 var emptyColor: StyleBoxEmpty = preload("res://assets/styleBox/collectionButtonEmpty.tres")
 @onready var grid: GridContainer = $GridContainer
@@ -8,10 +7,9 @@ var emptyColor: StyleBoxEmpty = preload("res://assets/styleBox/collectionButtonE
 var inspecting: bool = false
 
 func _ready() -> void:
-	allCards = get_parent().allCards
-	var collectedCards = get_parent().find_child("Node").cards
+	var collectedCards = Player.cards
 	
-	for card in allCards:
+	for card in Player.allCards:
 		var createdCard = card.instantiate()
 		var sprite: Sprite2D = createdCard.get_child(0)
 		var button = Button.new()

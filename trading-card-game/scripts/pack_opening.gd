@@ -1,14 +1,12 @@
 extends Node2D
 
 var packs: Array[Pack]
-var player
 var pressColor: StyleBoxFlat = preload("res://assets/styleBox/collectionButton.tres")
 var emptyColor: StyleBoxEmpty = preload("res://assets/styleBox/collectionButtonEmpty.tres")
 
 @onready var grid: GridContainer = $GridContainer
 
 func _ready() -> void:
-	player = get_parent().find_child("Node")
 	var dir = DirAccess.open("res://assets/createdObjects/packs")
 	if dir:
 		dir.list_dir_begin()
@@ -49,4 +47,4 @@ func open_pack(index: int):
 	
 	for _count in range(0,amountPerPack):
 		var i = randi_range(0, len(packs[index].cardsInPack)-1)
-		player.cards.append(packs[index].cardsInPack[i])
+		Player.cards.append(packs[index].cardsInPack[i])

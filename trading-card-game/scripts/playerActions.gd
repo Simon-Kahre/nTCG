@@ -2,6 +2,7 @@ extends Node2D
 
 
 @export var testingCards: Array[PackedScene]
+var playerDeck: Array[PackedScene]
 var playerHand: Node2D
 
 var hoveringCards: Array[BasicCard]

@@ -32,7 +32,7 @@ func _ready() -> void:
 	else:
 		print("An error has occured. Path for cards is not found.")
 	
-	get_child(0).load_player()
+	Player.load_player(allCards)
 	
 	currentScene = availableScenes.HOME
 	self.add_child(homeScene.instantiate())

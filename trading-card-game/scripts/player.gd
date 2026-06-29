@@ -1,4 +1,4 @@
-class_name Player
+#class_name Player
 
 extends Node
 
@@ -8,8 +8,8 @@ var collectedCards = {}
 
 var currentDeck: Array[PackedScene]
 
-func load_player() -> void:
-	allCards = get_parent().allCards
+func load_player(defCards: Array[PackedScene]) -> void:
+	allCards = defCards
 	
 	for card in allCards:
 		collectedCards[card] = 0
