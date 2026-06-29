@@ -43,5 +43,6 @@ func recenter_location():
 
 func _ready() -> void:
 	self.get_parent().offset_transform_enabled = true
+	self.get_parent().offset_transform_visual_only = false
 	self.get_parent().find_child("OpponentCards").connect("resized", self.recenter_location)
 	update_score()
