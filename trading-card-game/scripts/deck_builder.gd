@@ -1,42 +1,43 @@
 extends Node2D
 
-
-@export var testingCards: Array[PackedScene]
-var playerDeck: Array[PackedScene]
 var playerHand: Node2D
 
+@export var testingCards: Array[PackedScene]
 var hoveringCards: Array[BasicCard]
-var overSlot: GridContainer = null
+var overSlot: TextureRect = null
 
 var draggedCard: Node2D = null
 var orgPos: Vector2 = Vector2.ZERO
-
-@onready var combatStage: HBoxContainer = $CombatStage
-
 
 func _ready() -> void:
 	playerHand = self.find_child("PlayerHand")
 	playerHand.position = Vector2(get_viewport_rect().end.x/2, get_viewport_rect().end.y - 200)
 	
-	for vBox in combatStage.get_children():
-		var playerSlot = vBox.find_child("PlayerCards").find_child("Area2D")
-		playerSlot.connect("mouse_entered", entered_slot.bind(vBox.find_child("PlayerCards")))
-		playerSlot.connect("mouse_exited", left_slot)
-	
-	add_testing_cards()
+	add_cards()
 	center_cards()
 	
-	var confirmButton: Button = self.find_child("Confirm")
-	confirmButton.position = Vector2(get_viewport_rect().end.x - confirmButton.size.x, get_viewport_rect().end.y - confirmButton.size.y)
-	confirmButton.connect("pressed", self.find_child("CombatStage").confirm_placement)
+	for child in $VBoxContainer/GridContainer.get_children():
+		child.get_child(0).connect("mouse_entered", entered_slot.bind(child))
+		child.get_child(0).connect("mouse_exited", left_slot)
+
+func finished():
+	var finalDeck: Array[PackedScene]
+	var enoughCards = true
+	for card in $VBoxContainer/GridContainer.get_children():
+		if not card is BasicCard:
+			print("Too few cards in deck")
+			enoughCards = false
+			break
+		else:
+			var packedScene = load(card.scenePath)
+			finalDeck.append(packedScene)
 	
-	var reset: Button = self.find_child("Reset")
-	reset.position = Vector2(0, get_viewport_rect().end.y - reset.size.y)
-	reset.connect("pressed", self.find_child("CombatStage").reset_placement)
+	if enoughCards:
+		Player.currentDeck = finalDeck
+		self.get_parent().finish_deck()
 
-
-func add_testing_cards():
-	for card in Player.currentDeck:
+func add_cards():
+	for card in Player.cards:
 		var tempCard = card.instantiate()
 		tempCard.scenePath = card.resource_path
 		
@@ -44,7 +45,6 @@ func add_testing_cards():
 		
 		tempCard.get_child(1).connect("mouse_entered", add_hovering_card.bind(tempCard))
 		tempCard.get_child(1).connect("mouse_exited", remove_hovering_card.bind(tempCard))
-
 
 func add_hovering_card(card: BasicCard):
 	hoveringCards.append(card)
@@ -54,9 +54,8 @@ func remove_hovering_card(card: BasicCard):
 	hoveringCards.erase(card)
 
 
-func entered_slot(slot: GridContainer):
+func entered_slot(slot: TextureRect):
 	overSlot = slot
-
 
 func left_slot():
 	overSlot = null
@@ -92,19 +91,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			orgPos = selectedCard.position
 	
 	elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and draggedCard:
-		if overSlot and overSlot.get_child_count() < 5:
-			var tempCard = TextureRect.new()
-			tempCard.texture = draggedCard.get_child(0).texture
-			tempCard.set_script(draggedCard.get_script())
-			tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			tempCard.custom_minimum_size = Vector2(64,64)
-			overSlot.add_child(tempCard)
-			tempCard.scenePath = draggedCard.scenePath
+		if overSlot and overSlot.texture == load("res://assets/sprites/icon5.svg"):
+			overSlot.set_script(draggedCard.get_script())
+			overSlot.texture = draggedCard.get_child(0).texture
+			overSlot.scenePath = draggedCard.scenePath
 			draggedCard.free()
 			
 			center_cards()
-			
-			#overSlot.get_parent().get_child(1).update_score()
 		else:
 			draggedCard.position = orgPos
 		draggedCard = null
