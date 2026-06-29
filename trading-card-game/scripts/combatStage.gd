@@ -19,6 +19,9 @@ func reset_placement():
 				if card.justPlaced:
 					var packedScene = load(card.scenePath)
 					var newCard = packedScene.instantiate()
+					newCard.scenePath = card.scenePath
+					newCard.get_child(1).connect("mouse_entered", self.get_parent().add_hovering_card.bind(newCard))
+					newCard.get_child(1).connect("mouse_exited", self.get_parent().remove_hovering_card.bind(newCard))
 					self.get_parent().find_child("PlayerHand").add_child(newCard)
 					self.get_parent().center_cards()
 					card.free()
