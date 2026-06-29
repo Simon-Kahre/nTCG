@@ -27,11 +27,13 @@ func reset_placement():
 					card.free()
 
 func disable_buttons():
+	self.get_parent().isNotConfirmed = false
 	$"../Confirm".disabled = true
 	$"../Reset".disabled = true
 
 @rpc("any_peer","call_local")
 func enable_buttons():
+	self.get_parent().isNotConfirmed = true
 	$"../Confirm".disabled = false
 	$"../Reset".disabled = false
 

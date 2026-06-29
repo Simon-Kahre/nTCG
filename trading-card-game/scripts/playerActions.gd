@@ -11,6 +11,8 @@ var overSlot: GridContainer = null
 var draggedCard: Node2D = null
 var orgPos: Vector2 = Vector2.ZERO
 
+var isNotConfirmed: bool = false
+
 @onready var combatStage: HBoxContainer = $CombatStage
 
 
@@ -79,33 +81,34 @@ func _process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
-		var selectedCard = null
-		for card in hoveringCards:
-			if selectedCard:
-				if selectedCard.z_index < card.z_index:
+	if isNotConfirmed:
+		if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+			var selectedCard = null
+			for card in hoveringCards:
+				if selectedCard:
+					if selectedCard.z_index < card.z_index:
+						selectedCard = card
+				else:
 					selectedCard = card
+			if selectedCard:
+				draggedCard = selectedCard
+				orgPos = selectedCard.position
+		
+		elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and draggedCard:
+			if overSlot and overSlot.get_child_count() < 5:
+				var tempCard = TextureRect.new()
+				tempCard.texture = draggedCard.get_child(0).texture
+				tempCard.set_script(draggedCard.get_script())
+				tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				tempCard.custom_minimum_size = Vector2(64,64)
+				overSlot.add_child(tempCard)
+				tempCard.scenePath = draggedCard.scenePath
+				draggedCard.free()
+				
+				center_cards()
+				
+				#overSlot.get_parent().get_child(1).update_score()
 			else:
-				selectedCard = card
-		if selectedCard:
-			draggedCard = selectedCard
-			orgPos = selectedCard.position
-	
-	elif event is InputEventMouseButton and event.is_released() and event.button_index == 1 and draggedCard:
-		if overSlot and overSlot.get_child_count() < 5:
-			var tempCard = TextureRect.new()
-			tempCard.texture = draggedCard.get_child(0).texture
-			tempCard.set_script(draggedCard.get_script())
-			tempCard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			tempCard.custom_minimum_size = Vector2(64,64)
-			overSlot.add_child(tempCard)
-			tempCard.scenePath = draggedCard.scenePath
-			draggedCard.free()
-			
-			center_cards()
-			
-			#overSlot.get_parent().get_child(1).update_score()
-		else:
-			draggedCard.position = orgPos
-		draggedCard = null
-		orgPos = Vector2.ZERO
+				draggedCard.position = orgPos
+			draggedCard = null
+			orgPos = Vector2.ZERO
