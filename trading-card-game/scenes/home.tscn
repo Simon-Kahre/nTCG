@@ -18,3 +18,4 @@ layout_mode = 2
 text = "Change Deck"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="challenge_player"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="change_deck"]

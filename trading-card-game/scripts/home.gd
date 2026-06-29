@@ -9,3 +9,22 @@ func _ready() -> void:
 
 func challenge_player():
 	get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
+
+func change_deck():
+	$VBoxContainer/Button.visible = false
+	$VBoxContainer/Button2.visible = false
+	$VBoxContainer/Button.disabled = true
+	$VBoxContainer/Button2.disabled = true
+	var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
+	deckBuilder.name = "DeckBuilder"
+	self.add_child(deckBuilder)
+
+func finish_deck():
+	$VBoxContainer/Button.visible = true
+	$VBoxContainer/Button2.visible = true
+	$VBoxContainer/Button.disabled = false
+	$VBoxContainer/Button2.disabled = false
+	
+	for child in self.get_children():
+		if child.name == "DeckBuilder":
+			child.queue_free()
