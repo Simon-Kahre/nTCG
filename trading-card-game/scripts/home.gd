@@ -7,6 +7,5 @@ func _ready() -> void:
 	uiButtons.scale = Vector2(screenSize.end[0]/uiButtons.size.x*3/5, screenSize.end[0]/uiButtons.size.x*3/5)
 	uiButtons.position = Vector2(screenSize.end[0]/2-(uiButtons.size.x/2*uiButtons.scale.x), screenSize.end[1]/4)
 
-
 func challenge_player():
 	get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
