@@ -2,9 +2,16 @@
 
 [ext_resource type="Script" uid="uid://ba2xl67v4d72v" path="res://scripts/deck_builder.gd" id="1_jlj4b"]
 [ext_resource type="Texture2D" uid="uid://dj0a37c6ieyme" path="res://assets/sprites/icon5.svg" id="1_rkkd4"]
+[ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="2_5isr1"]
+[ext_resource type="PackedScene" uid="uid://chcbavh6ckvuy" path="res://assets/createdObjects/cards/testcard4.tscn" id="3_f3x3h"]
+[ext_resource type="PackedScene" uid="uid://2y6gt8te51gf" path="res://assets/createdObjects/cards/testcard2.tscn" id="4_hq74x"]
+[ext_resource type="PackedScene" uid="uid://byjjebq6qijrk" path="res://assets/createdObjects/cards/testcard3.tscn" id="5_mtnrs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
 [node name="DeckBuilder" type="Node2D" unique_id=2091054651]
 script = ExtResource("1_jlj4b")
+testingCards = Array[PackedScene]([ExtResource("2_5isr1"), ExtResource("3_f3x3h"), ExtResource("4_hq74x"), ExtResource("5_mtnrs"), ExtResource("3_f3x3h"), ExtResource("2_5isr1"), ExtResource("4_hq74x"), ExtResource("5_mtnrs"), ExtResource("3_f3x3h"), ExtResource("2_5isr1")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1440098471]
 offset_right = 40.0
@@ -18,44 +25,116 @@ columns = 5
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect" unique_id=738375912]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect/Area2D" unique_id=534030628]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="TextureRect2" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=709612275]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect2" unique_id=1022921477]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect2/Area2D" unique_id=512301855]
+shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="TextureRect3" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=1048475462]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect3" unique_id=1468867389]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect3/Area2D" unique_id=323412019]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="TextureRect4" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=159553645]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect4" unique_id=1914227526]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect4/Area2D" unique_id=197674296]
+shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="TextureRect5" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=751376317]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect5" unique_id=1758097699]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect5/Area2D" unique_id=1512161098]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="TextureRect6" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=1200879064]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect6" unique_id=804254561]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect6/Area2D" unique_id=1128020556]
+shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="TextureRect7" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=58228500]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect7" unique_id=2144174028]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect7/Area2D" unique_id=1921557465]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="TextureRect8" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=553602765]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
+
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect8" unique_id=1429877642]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect8/Area2D" unique_id=1396347612]
+shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="TextureRect9" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=260245414]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect9" unique_id=189341644]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect9/Area2D" unique_id=526589221]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="TextureRect10" type="TextureRect" parent="VBoxContainer/GridContainer" unique_id=1087374475]
 layout_mode = 2
 texture = ExtResource("1_rkkd4")
 
+[node name="Area2D" type="Area2D" parent="VBoxContainer/GridContainer/TextureRect10" unique_id=97029365]
+position = Vector2(64, 64)
+scale = Vector2(6, 6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/GridContainer/TextureRect10/Area2D" unique_id=518628713]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=668606854]
 layout_mode = 2
 text = "Done"
+
+[node name="PlayerHand" type="Node2D" parent="." unique_id=108370854]
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="finished"]
