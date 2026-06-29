@@ -36,7 +36,7 @@ func _ready() -> void:
 
 
 func add_testing_cards():
-	for card in testingCards:
+	for card in Player.currentDeck:
 		var tempCard = card.instantiate()
 		tempCard.scenePath = card.resource_path
 		
