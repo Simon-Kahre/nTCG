@@ -13,7 +13,7 @@ func _ready() -> void:
 	playerHand = self.find_child("PlayerHand")
 	playerHand.position = Vector2(get_viewport_rect().end.x/2, get_viewport_rect().end.y - 200)
 	
-	add_testing_cards()
+	add_cards()
 	center_cards()
 	
 	for child in $VBoxContainer/GridContainer.get_children():
@@ -21,7 +21,7 @@ func _ready() -> void:
 		child.get_child(0).connect("mouse_exited", left_slot)
 
 func finished():
-	var finalDeck: Array[BasicCard]
+	var finalDeck: Array[PackedScene]
 	var enoughCards = true
 	for card in $VBoxContainer/GridContainer.get_children():
 		if not card is BasicCard:
@@ -30,15 +30,14 @@ func finished():
 			break
 		else:
 			var packedScene = load(card.scenePath)
-			var newCard = packedScene.instantiate()
-			newCard.scenePath = card.scenePath
-			finalDeck.append(newCard)
+			finalDeck.append(packedScene)
 	
 	if enoughCards:
+		self.get_parent().get_parent().find_child("Node").currentDeck = finalDeck
 		self.get_parent().finish_deck()
 
-func add_testing_cards():
-	for card in testingCards:
+func add_cards():
+	for card in self.get_parent().get_parent().find_child("Node").cards:
 		var tempCard = card.instantiate()
 		tempCard.scenePath = card.resource_path
 		
