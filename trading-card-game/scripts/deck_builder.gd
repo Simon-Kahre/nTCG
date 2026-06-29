@@ -26,7 +26,7 @@ func finished():
 	for card in $VBoxContainer/GridContainer.get_children():
 		if not card is BasicCard:
 			print("Too few cards in deck")
-			#enoughCards = false
+			enoughCards = false
 			break
 		else:
 			var packedScene = load(card.scenePath)
@@ -99,8 +99,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			draggedCard.free()
 			
 			center_cards()
-			
-			#overSlot.get_parent().get_child(1).update_score()
 		else:
 			draggedCard.position = orgPos
 		draggedCard = null
