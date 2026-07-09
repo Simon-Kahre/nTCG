@@ -13,7 +13,10 @@ func _ready() -> void:
 		var pack = dir.get_next()
 		while pack != "":
 			if not dir.current_is_dir():
-				packs.append(load(dir.get_current_dir()+"/"+pack))
+				if pack.ends_with(".remap"):
+					packs.append(load(dir.get_current_dir()+"/"+pack.trim_suffix(".remap")))
+				else:
+					packs.append(load(dir.get_current_dir()+"/"+pack))
 			pack = dir.get_next()
 	else:
 		print("An error has occured. Path for packs is not found.")
