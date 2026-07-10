@@ -4,6 +4,7 @@ var peer = WebRTCMultiplayerPeer.new()
 var socket = WebSocketPeer.new()
 @export var webSocketUrl = "ws://localhost:8080"
 var sent = false
+@onready var testingLabel: Label = $TestingLabel
 
 var confirmCount: int = 0
 var turnCount: int = 1
@@ -23,6 +24,11 @@ func _process(_delta: float) -> void:
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sent:
 		socket.send_text("Testing Testing")
 		sent = true
+	while socket.get_available_packet_count() > 0:
+		var packet = socket.get_packet()
+		var text = packet.get_string_from_utf8()
+		testingLabel.text = text
+		print("Room Code: ", text)
 
 func host_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)

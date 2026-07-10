@@ -15,6 +15,7 @@ server.on("connection", (socket) => {
         console.log(roomCode);
     }
     roomCodes.push(roomCode);
+    socket.send(roomCode);
 
     socket.on("message", (message) => {
         console.log("Recieved:", message.toString());
