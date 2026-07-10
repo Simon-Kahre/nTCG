@@ -3,7 +3,9 @@ extends Node2D
 var peer = WebRTCMultiplayerPeer.new()
 var socket = WebSocketPeer.new()
 @export var webSocketUrl = "ws://localhost:8080"
-var sent = false
+var sentInitialData = false
+var host = false
+var roomCode: String = ""
 @onready var testingLabel: Label = $TestingLabel
 
 var confirmCount: int = 0
@@ -21,12 +23,17 @@ func _process(_delta: float) -> void:
 	pass
 	socket.poll()
 	
-	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sent:
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sentInitialData:
+		if host:
+			socket.send_text("host")
+		else:
+			socket.send_text("client")
 		socket.send_text("Testing Testing")
-		sent = true
+		sentInitialData = true
 	while socket.get_available_packet_count() > 0:
 		var packet = socket.get_packet()
 		var text = packet.get_string_from_utf8()
+		roomCode = text
 		testingLabel.text = text
 		print("Room Code: ", text)
 
@@ -34,13 +41,16 @@ func host_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)
 	if err == OK:
 		disable_buttons()
+		host = true
 	#peer.create_server(PORT)
 	peer.create_server()
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_peer_connected)
 
 func join_button_pressed():
-	#disable_buttons()
+	var err = socket.connect_to_url(webSocketUrl)
+	if err == OK:
+		disable_buttons()
 	peer.create_client(2)
 	#peer.create_client(SERVERADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer

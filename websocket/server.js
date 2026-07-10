@@ -6,18 +6,22 @@ const roomCodes = [];
 
 server.on("connection", (socket) => {
     console.log("A client connected!");
-    var roomCode = generateRoomCode();
-    console.log(roomCode);
-
-    while(roomCodes.includes(roomCode))
-    {
-        roomCode = generateRoomCode();
-        console.log(roomCode);
-    }
-    roomCodes.push(roomCode);
-    socket.send(roomCode);
+    
 
     socket.on("message", (message) => {
+        if(message.toString().localeCompare("host") == 0)
+        {
+            var roomCode = generateRoomCode();
+            console.log(roomCode);
+
+            while(roomCodes.includes(roomCode))
+            {
+                roomCode = generateRoomCode();
+                console.log(roomCode);
+            }
+            roomCodes.push(roomCode);
+            socket.send(roomCode);
+        }
         console.log("Recieved:", message.toString());
     });
 });
