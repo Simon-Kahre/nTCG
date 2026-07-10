@@ -33,7 +33,7 @@ func _ready() -> void:
 		
 	var gridSizeX = grid.get_combined_minimum_size().x
 	var screenSize = get_viewport_rect()
-	grid.scale = Vector2(screenSize.end[0]/gridSizeX, screenSize.end[0]/gridSizeX)
+	#grid.scale = Vector2(screenSize.end[0]/gridSizeX, screenSize.end[0]/gridSizeX)
 
 func override_styleboxes(button: Button):
 	button.add_theme_stylebox_override("pressed", pressColor)

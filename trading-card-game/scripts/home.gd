@@ -8,10 +8,11 @@ func _ready() -> void:
 	uiButtons.position = Vector2(screenSize.end[0]/2-(uiButtons.size.x/2*uiButtons.scale.x), screenSize.end[1]/4)
 
 func challenge_player():
-	if len(Player.currentDeck) > 2:
+	"""if len(Player.currentDeck) > 2:
 		get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
 	else:
-		print("You need a deck first")
+		print("You need a deck first")"""
+	get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
 
 func change_deck():
 	$VBoxContainer/Button.visible = false

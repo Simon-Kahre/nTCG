@@ -1,6 +1,9 @@
 extends Node2D
 
-var peer = ENetMultiplayerPeer.new()
+var peer = WebRTCMultiplayerPeer.new()
+var socket = WebSocketPeer.new()
+@export var webSocketUrl = "ws://localhost:8080"
+var sent = false
 
 var confirmCount: int = 0
 var turnCount: int = 1
@@ -13,16 +16,27 @@ const SERVERADDRESS = "localhost"
 func _ready() -> void:
 	combatNode.visible = false
 
+func _process(_delta: float) -> void:
+	pass
+	socket.poll()
+	
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sent:
+		socket.send_text("Testing Testing")
+		sent = true
+
 func host_button_pressed():
-	disable_buttons()
-	peer.create_server(PORT)
+	var err = socket.connect_to_url(webSocketUrl)
+	if err == OK:
+		disable_buttons()
+	#peer.create_server(PORT)
+	peer.create_server()
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_peer_connected)
-	
 
 func join_button_pressed():
-	disable_buttons()
-	peer.create_client(SERVERADDRESS, PORT)
+	#disable_buttons()
+	peer.create_client(2)
+	#peer.create_client(SERVERADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
 
 func disable_buttons():
