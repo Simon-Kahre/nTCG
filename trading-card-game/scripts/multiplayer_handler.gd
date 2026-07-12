@@ -51,9 +51,16 @@ func _process(_delta: float) -> void:
 	while socket.get_available_packet_count() > 0:
 		var packet = socket.get_packet()
 		var text = packet.get_string_from_utf8()
-		roomCode = text
-		testingLabel.text = text
-		print("Room Code: ", text)
+		if host:
+			roomCode = text
+			testingLabel.text = text
+			print("Room Code: ", text)
+		else:
+			if text == "Room Exists":
+				disable_buttons()
+			else:
+				socket.close()
+				sentInitialData = false
 
 func host_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)
@@ -75,6 +82,7 @@ func join_button_pressed():
 
 func disable_buttons():
 	combatNode.visible = true
+	roomCodeInput.queue_free()
 	$Host.queue_free()
 	$Join.queue_free()
 

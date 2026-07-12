@@ -40,10 +40,12 @@ server.on("connection", (socket) => {
                     roomCode: data.roomCode,
                     host: data.host
                 };
+                socket.send("Room Exists");
             }
             else
             {
                 console.log("Room Code doesn't exist");
+                socket.send("Room does not exist");
             }
         }
         //console.log("Recieved:", message.toString());
