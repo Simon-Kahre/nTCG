@@ -19,6 +19,7 @@ func change_deck():
 	$VBoxContainer/Button2.visible = false
 	$VBoxContainer/Button.disabled = true
 	$VBoxContainer/Button2.disabled = true
+	get_parent().find_child("HBoxContainer").visible = false
 	var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
 	deckBuilder.name = "DeckBuilder"
 	self.add_child(deckBuilder)
@@ -28,6 +29,7 @@ func finish_deck():
 	$VBoxContainer/Button2.visible = true
 	$VBoxContainer/Button.disabled = false
 	$VBoxContainer/Button2.disabled = false
+	get_parent().find_child("HBoxContainer").visible = true
 	
 	for child in self.get_children():
 		if child.name == "DeckBuilder":

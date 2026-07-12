@@ -13,8 +13,12 @@ server.on("connection", (socket) => {
     socket.onmessage = (event) => {
         var data = JSON.parse(event.data)
 
-        socket.username = data.username;
-        if(data.host == 1)
+        if(data.username)
+        {
+            socket.username = data.username;
+        }
+
+        if(data.type == "createRoom")
         {
             var roomCode = generateRoomCode();
             console.log(roomCode);
@@ -25,27 +29,59 @@ server.on("connection", (socket) => {
                 console.log(roomCode);
             }
             roomCodes.push(roomCode);
-            socket.send(roomCode);
+            socket.send(JSON.stringify({type: "roomCreated", code: roomCode}));
 
             users[socket.username] = {
                 roomCode: roomCode,
-                host: data.host
+                host: data.host,
+                socket: socket
             };
         }
-        else
+        else if(data.type == "joinRoom")
         {
             if(roomCodes.includes(data.roomCode))
             {
                 users[socket.username] = {
                     roomCode: data.roomCode,
-                    host: data.host
+                    host: data.host,
+                    socket: socket
                 };
-                socket.send("Room Exists");
+                socket.send(JSON.stringify({type: "roomJoined"}));
+
+                var sender = users[socket.username];
+
+                for(const username in users)
+                {
+                    var user = users[username];
+
+                    if(user.roomCode == sender.roomCode && user.socket != socket)
+                    {
+                        user.socket.send(JSON.stringify({type: "clientJoined"}));
+                    }
+                }
             }
             else
             {
                 console.log("Room Code doesn't exist");
-                socket.send("Room does not exist");
+                socket.send(JSON.stringify({type: "error"}));
+            }
+        }
+        else if(data.type == "offer" || data.type == "answer" || data.type == "candidate")
+        {
+            var sender = users[socket.username];
+            if(!sender)
+            {
+                return;
+            }
+
+            for(const username in users)
+            {
+                var user = users[username];
+
+                if(user.roomCode == sender.roomCode && user.socket != socket)
+                {
+                    user.socket.send(JSON.stringify(data));
+                }
             }
         }
         //console.log("Recieved:", message.toString());
