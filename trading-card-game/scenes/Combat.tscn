@@ -98,5 +98,12 @@ offset_top = 76.0
 offset_right = 266.0
 offset_bottom = 99.0
 
+[node name="TextEdit" type="TextEdit" parent="." unique_id=150749077]
+offset_left = 206.0
+offset_top = 260.0
+offset_right = 311.0
+offset_bottom = 299.0
+placeholder_text = "Room Code"
+
 [connection signal="pressed" from="Host" to="." method="host_button_pressed"]
 [connection signal="pressed" from="Join" to="." method="join_button_pressed"]

@@ -4,12 +4,17 @@ const server = new Websocket.Server({ port: 8080});
 
 const roomCodes = [];
 
+const users = {};
+
 server.on("connection", (socket) => {
     console.log("A client connected!");
     
 
-    socket.on("message", (message) => {
-        if(message.toString().localeCompare("host") == 0)
+    socket.onmessage = (event) => {
+        var data = JSON.parse(event.data)
+
+        socket.username = data.username;
+        if(data.host == 1)
         {
             var roomCode = generateRoomCode();
             console.log(roomCode);
@@ -21,8 +26,34 @@ server.on("connection", (socket) => {
             }
             roomCodes.push(roomCode);
             socket.send(roomCode);
+
+            users[socket.username] = {
+                roomCode: roomCode,
+                host: data.host
+            };
         }
-        console.log("Recieved:", message.toString());
+        else
+        {
+            if(roomCodes.includes(data.roomCode))
+            {
+                users[socket.username] = {
+                    roomCode: data.roomCode,
+                    host: data.host
+                };
+            }
+            else
+            {
+                console.log("Room Code doesn't exist");
+            }
+        }
+        //console.log("Recieved:", message.toString());
+        console.log(users);
+    };
+
+    socket.on("close", () => {
+        console.log("Client disconnected");
+        delete users[socket.username];
+        console.log(users);
     });
 });
 

@@ -7,6 +7,7 @@ var sentInitialData = false
 var host = false
 var roomCode: String = ""
 @onready var testingLabel: Label = $TestingLabel
+@onready var roomCodeInput: TextEdit = $TextEdit
 
 var confirmCount: int = 0
 var turnCount: int = 1
@@ -24,11 +25,28 @@ func _process(_delta: float) -> void:
 	socket.poll()
 	
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sentInitialData:
+		var isHost = 0
 		if host:
-			socket.send_text("host")
+			isHost = 1
+			#socket.send_text("host")
+			var message = {
+				host = isHost,
+				username = "simkah"
+			}
+			socket.send_text(JSON.stringify(message))
 		else:
-			socket.send_text("client")
-		socket.send_text("Testing Testing")
+			#socket.send_text("client")
+			var message = {
+				host = isHost,
+				username = "testte",
+				roomCode = roomCodeInput.get_line(0)
+			}
+			socket.send_text(JSON.stringify(message))
+		#socket.send_text("Testing Testing")
+		"""var message = {
+			host = isHost,
+			username = "simkah"
+		}"""
 		sentInitialData = true
 	while socket.get_available_packet_count() > 0:
 		var packet = socket.get_packet()
@@ -49,8 +67,8 @@ func host_button_pressed():
 
 func join_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)
-	if err == OK:
-		disable_buttons()
+	#if err == OK:
+		#disable_buttons()
 	peer.create_client(2)
 	#peer.create_client(SERVERADDRESS, PORT)
 	multiplayer.multiplayer_peer = peer
