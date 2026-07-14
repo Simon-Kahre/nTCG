@@ -10,11 +10,7 @@ func _ready():
 	UI.scale = Vector2(screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50), screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50))
 	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0)
 	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
-	UI.find_child("ScrollContainer").offset_transform_enabled = true
-	print((screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12)*UI.scale.y)/UI.scale.y)
-	#print(screenSize.end[1] - ((UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 210) * ((screenSize.end[0]/screenSize.end[1])/(1920/1080))))
 	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y
-	#265/(screenSize.end[1]/(UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 265))
 	update_scroll_container()
 
 func update_scroll_container():
