@@ -190,7 +190,7 @@ layout_mode = 2
 text = "Confirm"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI" unique_id=632949578]
-custom_minimum_size = Vector2(0, 264.48)
+custom_minimum_size = Vector2(0, 265)
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="UI/ScrollContainer" unique_id=876151881]

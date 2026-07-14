@@ -4,7 +4,15 @@ extends Node2D
 var collectedCardsContainer: GridContainer
 
 func _ready():
+	var screenSize = get_viewport_rect()
+	UI.position.x = 50
+	UI.find_child("GridContainer").add_theme_constant_override("h_separation", 50)
+	UI.scale = Vector2(screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50), screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50))
+	print(UI.find_child("GridContainer").size)
 	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0)
+	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
+	UI.find_child("ScrollContainer").offset_transform_enabled = true
+	UI.find_child("ScrollContainer").custom_minimum_size.y = 265/(screenSize.end[1]/(UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 265))
 	update_scroll_container()
 
 func update_scroll_container():
