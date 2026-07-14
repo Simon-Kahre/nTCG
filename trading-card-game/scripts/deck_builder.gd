@@ -28,14 +28,14 @@ func update_scroll_container():
 			
 			collectedCardsContainer.add_child(tempButton)
 
-func card_clicked(toggledOn: bool, cardScene, button: Button, connectedSlot: TextureRect = null):
+func card_clicked(toggledOn: bool, cardScene: PackedScene, button: Button, connectedSlot: TextureRect = null):
 	if toggledOn:
 		for slot: TextureRect in UI.find_child("GridContainer").get_children():
 			if !slot.get_script():
 				var card = cardScene.instantiate()
 				slot.set_script(card.get_script())
 				slot.texture = card.get_child(0).texture
-				slot.scenePath = card.scenePath
+				slot.scenePath = cardScene.resource_path
 				button.disconnect("toggled", card_clicked)
 				button.connect("toggled", card_clicked.bind(cardScene, button, slot))
 				return
