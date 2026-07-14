@@ -5,15 +5,6 @@ var collectedCardsContainer: GridContainer
 
 func _ready():
 	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0)
-	"""for card in Player.cards:
-		var tempButton = Button.new()
-		var tempCard = card.instantiate()
-		
-		tempButton.icon = tempCard.get_child(0).texture
-		tempButton.toggle_mode = true
-		tempButton.connect("toggled", card_clicked.bind(card, tempButton))
-		
-		collectedCardsContainer.add_child(tempButton)"""
 	update_scroll_container()
 
 func update_scroll_container():
