@@ -10,7 +10,7 @@ var sentInitialData = false
 var host = false
 var roomCode: String = ""
 @onready var testingLabel: Label = $TestingLabel
-@onready var roomCodeInput: TextEdit = $TextEdit
+@onready var roomCodeInput: TextEdit = $AspectRatioContainer/TextEdit
 @onready var debugLabel: Label = $DebugLabel	
 
 var confirmCount: int = 0
