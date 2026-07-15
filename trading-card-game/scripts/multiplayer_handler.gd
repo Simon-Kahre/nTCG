@@ -102,8 +102,10 @@ func join_button_pressed():
 func disable_buttons():
 	combatNode.visible = true
 	roomCodeInput.queue_free()
-	$Host.queue_free()
-	$Join.queue_free()
+	$AspectRatioContainer/Host.queue_free()
+	$AspectRatioContainer/Join.queue_free()
+	$AspectRatioContainer/Back.queue_free()
+	$AspectRatioContainer/TextEdit.queue_free()
 
 func _on_peer_connected(peerId):
 	if multiplayer.is_server():
@@ -209,9 +211,11 @@ func player_confirmed():
 		$Combat/CombatStage.enable_buttons.rpc()
 
 func debug(text):
-	pass
 	debugLabel.text += "\n" + str(text)
 
 func back_pressed():
 	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
-	pass
+
+func surrender():
+	socket.close()
+	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
