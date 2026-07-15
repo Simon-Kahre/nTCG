@@ -90,6 +90,25 @@ server.on("connection", (socket) => {
 
     socket.on("close", () => {
         console.log("Client disconnected");
+
+        var sender = users[socket.username];
+        for(const username in users)
+        {
+            var user = users[username];
+
+            if(user.roomCode == sender.roomCode && user.socket != socket)
+            {
+                user.socket.send(JSON.stringify({type: "playerLeft"}));
+            }
+        }
+
+        const index = roomCodes.indexOf(sender.roomCode);
+
+        if(index != -1)
+        {
+            roomCodes.splice(index, 1);
+        }
+
         delete users[socket.username];
         console.log(users);
     });

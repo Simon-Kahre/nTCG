@@ -77,6 +77,9 @@ func _process(_delta: float) -> void:
 			"error":
 				socket.close()
 				sentInitialData = false
+			"playerLeft":
+				socket.close()
+				get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
 
 func host_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)
