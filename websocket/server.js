@@ -101,16 +101,18 @@ server.on("connection", (socket) => {
                 user.socket.send(JSON.stringify({type: "playerLeft"}));
             }
         }
-
-        const index = roomCodes.indexOf(sender.roomCode);
-
-        if(index != -1)
+        if(sender)
         {
-            roomCodes.splice(index, 1);
-        }
+            const index = roomCodes.indexOf(sender.roomCode);
 
-        delete users[socket.username];
-        console.log(users);
+            if(index != -1)
+            {
+                roomCodes.splice(index, 1);
+            }
+
+            delete users[socket.username];
+            console.log(users);
+        }
     });
 });
 

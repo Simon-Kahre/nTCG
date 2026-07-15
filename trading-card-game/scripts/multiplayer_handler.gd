@@ -9,9 +9,13 @@ var pendingCandidates = {}
 var sentInitialData = false
 var host = false
 var roomCode: String = ""
+
 @onready var testingLabel: Label = $TestingLabel
 @onready var roomCodeInput: TextEdit = $AspectRatioContainer/TextEdit
-@onready var debugLabel: Label = $DebugLabel	
+
+@onready var debugLabel: Label = $DebugLabel
+@onready var infoLabel = $AspectRatioContainer/Label
+var opacity: float = 0.0
 
 var confirmCount: int = 0
 var turnCount: int = 1
@@ -23,9 +27,16 @@ const SERVERADDRESS = "localhost"
 
 func _ready() -> void:
 	combatNode.visible = false
+	infoLabel.modulate = Color(1,1,1,0)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if opacity > 0.0:
+		opacity -= delta
+		if opacity > 1:
+			infoLabel.modulate = Color(1,1,1,1)
+		else:
+			infoLabel.modulate = Color(1,1,1,opacity)
 	socket.poll()
 	
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sentInitialData:
@@ -77,6 +88,7 @@ func _process(_delta: float) -> void:
 			"error":
 				socket.close()
 				sentInitialData = false
+				opacity = 3
 			"playerLeft":
 				socket.close()
 				get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))

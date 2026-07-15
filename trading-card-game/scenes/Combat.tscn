@@ -128,6 +128,14 @@ offset_transform_position = Vector2(35, 103.125)
 offset_transform_visual_only = false
 text = "Back"
 
+[node name="Label" type="Label" parent="AspectRatioContainer" unique_id=1893003939]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(36, -62.92)
+offset_transform_visual_only = false
+text = "Room code
+doesn't exist"
+
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
 [connection signal="pressed" from="AspectRatioContainer/Host" to="." method="host_button_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/Join" to="." method="join_button_pressed"]
