@@ -211,3 +211,7 @@ func player_confirmed():
 func debug(text):
 	pass
 	debugLabel.text += "\n" + str(text)
+
+func back_pressed():
+	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
+	pass

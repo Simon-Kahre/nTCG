@@ -111,9 +111,18 @@ text = "Join"
 custom_minimum_size = Vector2(109, 0)
 layout_mode = 2
 offset_transform_enabled = true
-offset_transform_position = Vector2(37.215, 49.255)
+offset_transform_position = Vector2(35, 49.255)
 offset_transform_visual_only = false
 placeholder_text = "Room Code"
 
+[node name="Back" type="Button" parent="AspectRatioContainer" unique_id=1856514574]
+custom_minimum_size = Vector2(110.815, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(35, 103.125)
+offset_transform_visual_only = false
+text = "Back"
+
 [connection signal="pressed" from="AspectRatioContainer/Host" to="." method="host_button_pressed"]
 [connection signal="pressed" from="AspectRatioContainer/Join" to="." method="join_button_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Back" to="." method="back_pressed"]
