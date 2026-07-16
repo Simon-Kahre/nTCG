@@ -89,7 +89,7 @@ server.on("connection", (socket) => {
         }
         else if(data.type == "database")
         {
-            db.get("SELECT cardId, cardCount FROM groupCards JOIN users ON groupCards.userGroup = users.userGroup WHERE users.userId = $username ;", 
+            db.all("SELECT cardId, cardCount FROM groupCards JOIN users ON groupCards.userGroup = users.userGroup WHERE users.userId = $username ;", 
                 {$username: data.username}, (err, row) => 
                 {
                     if (err) {
@@ -97,7 +97,9 @@ server.on("connection", (socket) => {
                         return;
                     }
                     console.log(row);
+                    socket.send(JSON.stringify(row));
                 });
+            
         }
         //console.log("Recieved:", message.toString());
         console.log(users);

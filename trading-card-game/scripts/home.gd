@@ -42,6 +42,7 @@ func change_deck():
 	get_parent().find_child("HBoxContainer").visible = false
 	for child in self.get_children():
 		if child.name == "DeckBuilder":
+			child.update_scroll_container()
 			child.visible = true
 
 	"""var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
