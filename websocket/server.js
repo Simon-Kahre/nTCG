@@ -1,3 +1,6 @@
+const sqlite3 = require("sqlite3");
+const db = new sqlite3.Database("../database/fooAccounts.db");
+
 const Websocket = require("ws");
 
 const server = new Websocket.Server({ port: 8080});
@@ -83,6 +86,18 @@ server.on("connection", (socket) => {
                     user.socket.send(JSON.stringify(data));
                 }
             }
+        }
+        else if(data.type == "database")
+        {
+            db.get("SELECT cardId, cardCount FROM groupCards JOIN users ON groupCards.userGroup = users.userGroup WHERE users.userId = $username ;", 
+                {$username: data.username}, (err, row) => 
+                {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    console.log(row);
+                });
         }
         //console.log("Recieved:", message.toString());
         console.log(users);
