@@ -12,7 +12,6 @@ var packScene: PackedScene = preload("res://scenes/packs.tscn")
 
 var socket = WebSocketPeer.new()
 @export var webSocketUrl = "ws://localhost:8080"
-var sentInitialData: bool = false
 
 @onready var bottomButtons: HBoxContainer = $HBoxContainer
 
@@ -21,6 +20,8 @@ var currentScene: availableScenes
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
+	Player.username = "simkah"
+	
 	var screenSize = get_viewport_rect()
 	bottomButtons.scale = Vector2(screenSize.end[0]/bottomButtons.size.x,screenSize.end[0]/bottomButtons.size.x)
 	bottomButtons.position.y = screenSize.end[1]-(40*bottomButtons.scale.y)
@@ -53,9 +54,9 @@ func _ready() -> void:
 			switch_scene(availableScenes.PACK)"""
 
 func _process(_delta: float) -> void:
-	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sentInitialData:
-		socket.send_text(JSON.stringify({type = "database", username = "simkah"}))
-		sentInitialData = true
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse:
+		socket.send_text(JSON.stringify({type = "database", username = Player.username}))
+		Player.accessedDatabse = true
 	
 	while socket.get_available_packet_count() > 0:
 		var packet = socket.get_packet()
