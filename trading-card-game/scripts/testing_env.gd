@@ -26,7 +26,8 @@ func _ready() -> void:
 	bottomButtons.scale = Vector2(screenSize.end[0]/bottomButtons.size.x,screenSize.end[0]/bottomButtons.size.x)
 	bottomButtons.position.y = screenSize.end[1]-(40*bottomButtons.scale.y)
 	
-	var err = socket.connect_to_url(webSocketUrl)
+	if !Player.accessedDatabse:
+		var err = socket.connect_to_url(webSocketUrl)
 	
 	var dir = DirAccess.open("res://assets/createdObjects/cards")
 	if dir:
