@@ -1,3 +1,6 @@
+const sqlite3 = require("sqlite3");
+const db = new sqlite3.Database("../database/fooAccounts.db");
+
 const Websocket = require("ws");
 
 const server = new Websocket.Server({ port: 8080});
@@ -84,14 +87,49 @@ server.on("connection", (socket) => {
                 }
             }
         }
+        else if(data.type == "database")
+        {
+            db.all("SELECT cardId, cardCount FROM groupCards JOIN users ON groupCards.userGroup = users.userGroup WHERE users.userId = $username ;", 
+                {$username: data.username}, (err, row) => 
+                {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    console.log(row);
+                    socket.send(JSON.stringify(row));
+                });
+            
+        }
         //console.log("Recieved:", message.toString());
         console.log(users);
     };
 
     socket.on("close", () => {
         console.log("Client disconnected");
-        delete users[socket.username];
-        console.log(users);
+
+        var sender = users[socket.username];
+        for(const username in users)
+        {
+            var user = users[username];
+
+            if(user.roomCode == sender.roomCode && user.socket != socket)
+            {
+                user.socket.send(JSON.stringify({type: "playerLeft"}));
+            }
+        }
+        if(sender)
+        {
+            const index = roomCodes.indexOf(sender.roomCode);
+
+            if(index != -1)
+            {
+                roomCodes.splice(index, 1);
+            }
+
+            delete users[socket.username];
+            console.log(users);
+        }
     });
 });
 

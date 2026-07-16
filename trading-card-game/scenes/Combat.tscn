@@ -73,24 +73,15 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Confirm"
 
+[node name="Surrender" type="Button" parent="Combat" unique_id=1109387751]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Surrender"
+
 [node name="Reset" type="Button" parent="Combat" unique_id=1119964765]
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Reset"
-
-[node name="Host" type="Button" parent="." unique_id=1436808931]
-offset_left = 310.0
-offset_top = 186.0
-offset_right = 354.0
-offset_bottom = 217.0
-text = "Host"
-
-[node name="Join" type="Button" parent="." unique_id=615903658]
-offset_left = 202.0
-offset_top = 180.0
-offset_right = 240.0
-offset_bottom = 211.0
-text = "Join"
 
 [node name="TestingLabel" type="Label" parent="." unique_id=1280319589]
 offset_left = 226.0
@@ -98,18 +89,54 @@ offset_top = 76.0
 offset_right = 266.0
 offset_bottom = 99.0
 
-[node name="TextEdit" type="TextEdit" parent="." unique_id=150749077]
-offset_left = 206.0
-offset_top = 260.0
-offset_right = 311.0
-offset_bottom = 299.0
-placeholder_text = "Room Code"
-
 [node name="DebugLabel" type="Label" parent="." unique_id=50530939]
 offset_left = 226.0
 offset_top = 318.0
 offset_right = 266.0
 offset_bottom = 341.0
 
-[connection signal="pressed" from="Host" to="." method="host_button_pressed"]
-[connection signal="pressed" from="Join" to="." method="join_button_pressed"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1895194962]
+offset_left = 174.56
+offset_top = 151.19
+offset_right = 283.56006
+offset_bottom = 191.19005
+
+[node name="Host" type="Button" parent="AspectRatioContainer" unique_id=1436808931]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(68.18, 0)
+offset_transform_visual_only = false
+text = "Host"
+
+[node name="Join" type="Button" parent="AspectRatioContainer" unique_id=615903658]
+layout_mode = 2
+text = "Join"
+
+[node name="TextEdit" type="TextEdit" parent="AspectRatioContainer" unique_id=150749077]
+custom_minimum_size = Vector2(109, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(35, 49.255)
+offset_transform_visual_only = false
+placeholder_text = "Room Code"
+
+[node name="Back" type="Button" parent="AspectRatioContainer" unique_id=1856514574]
+custom_minimum_size = Vector2(110.815, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(35, 103.125)
+offset_transform_visual_only = false
+text = "Back"
+
+[node name="Label" type="Label" parent="AspectRatioContainer" unique_id=1893003939]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(36, -62.92)
+offset_transform_visual_only = false
+text = "Room code
+doesn't exist"
+
+[connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
+[connection signal="pressed" from="AspectRatioContainer/Host" to="." method="host_button_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Join" to="." method="join_button_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Back" to="." method="back_pressed"]

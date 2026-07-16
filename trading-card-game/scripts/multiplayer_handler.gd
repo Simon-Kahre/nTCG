@@ -9,9 +9,13 @@ var pendingCandidates = {}
 var sentInitialData = false
 var host = false
 var roomCode: String = ""
+
 @onready var testingLabel: Label = $TestingLabel
-@onready var roomCodeInput: TextEdit = $TextEdit
-@onready var debugLabel: Label = $DebugLabel	
+@onready var roomCodeInput: TextEdit = $AspectRatioContainer/TextEdit
+
+@onready var debugLabel: Label = $DebugLabel
+@onready var infoLabel = $AspectRatioContainer/Label
+var opacity: float = 0.0
 
 var confirmCount: int = 0
 var turnCount: int = 1
@@ -23,9 +27,16 @@ const SERVERADDRESS = "localhost"
 
 func _ready() -> void:
 	combatNode.visible = false
+	infoLabel.modulate = Color(1,1,1,0)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if opacity > 0.0:
+		opacity -= delta
+		if opacity > 1:
+			infoLabel.modulate = Color(1,1,1,1)
+		else:
+			infoLabel.modulate = Color(1,1,1,opacity)
 	socket.poll()
 	
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !sentInitialData:
@@ -77,6 +88,10 @@ func _process(_delta: float) -> void:
 			"error":
 				socket.close()
 				sentInitialData = false
+				opacity = 3
+			"playerLeft":
+				socket.close()
+				get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
 
 func host_button_pressed():
 	var err = socket.connect_to_url(webSocketUrl)
@@ -102,8 +117,10 @@ func join_button_pressed():
 func disable_buttons():
 	combatNode.visible = true
 	roomCodeInput.queue_free()
-	$Host.queue_free()
-	$Join.queue_free()
+	$AspectRatioContainer/Host.queue_free()
+	$AspectRatioContainer/Join.queue_free()
+	$AspectRatioContainer/Back.queue_free()
+	$AspectRatioContainer/TextEdit.queue_free()
 
 func _on_peer_connected(peerId):
 	if multiplayer.is_server():
@@ -209,5 +226,11 @@ func player_confirmed():
 		$Combat/CombatStage.enable_buttons.rpc()
 
 func debug(text):
-	pass
 	debugLabel.text += "\n" + str(text)
+
+func back_pressed():
+	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
+
+func surrender():
+	socket.close()
+	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
