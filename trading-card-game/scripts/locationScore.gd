@@ -24,7 +24,7 @@ func update_score() -> void:
 	opLabel.text = str(opScore)
 	playerLabel.text = str(playerScore)
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer")
 func add_opponent_card(cardPath: String):
 	var card = load(cardPath)
 	card = card.instantiate()
