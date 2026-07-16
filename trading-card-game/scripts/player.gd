@@ -8,6 +8,9 @@ var collectedCards = {}
 
 var currentDeck: Array[PackedScene]
 
+var username: String
+var accessedDatabse: bool = false
+
 func load_player(defCards: Array[PackedScene]) -> void:
 	allCards = defCards
 	

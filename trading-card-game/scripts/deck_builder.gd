@@ -1,6 +1,59 @@
 extends Node2D
 
-var playerHand: Node2D
+@onready var UI: VBoxContainer = $UI
+var collectedCardsContainer: GridContainer
+
+func _ready():
+	var screenSize = get_viewport_rect()
+	UI.position.x = 50
+	UI.find_child("GridContainer").add_theme_constant_override("h_separation", 50)
+	UI.scale = Vector2(screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50), screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50))
+	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0)
+	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
+	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y
+	update_scroll_container()
+
+func update_scroll_container():
+	for i in range(len(Player.cards)):
+		if i >= collectedCardsContainer.get_child_count():
+			var tempButton = Button.new()
+			var tempCard = Player.cards[i].instantiate()
+			
+			tempButton.icon = tempCard.get_child(0).texture
+			tempButton.toggle_mode = true
+			tempButton.connect("toggled", card_clicked.bind(Player.cards[i], tempButton))
+			
+			collectedCardsContainer.add_child(tempButton)
+
+func card_clicked(toggledOn: bool, cardScene: PackedScene, button: Button, connectedSlot: TextureRect = null):
+	if toggledOn:
+		for slot: TextureRect in UI.find_child("GridContainer").get_children():
+			if !slot.get_script():
+				var card = cardScene.instantiate()
+				slot.set_script(card.get_script())
+				slot.texture = card.get_child(0).texture
+				slot.scenePath = cardScene.resource_path
+				button.disconnect("toggled", card_clicked)
+				button.connect("toggled", card_clicked.bind(cardScene, button, slot))
+				return
+	else:
+		if connectedSlot:
+			connectedSlot.texture = load("res://assets/sprites/icon5.svg")
+			button.disconnect("toggled", card_clicked)
+			button.connect("toggled", card_clicked.bind(cardScene, button))
+			connectedSlot.set_script(null)
+
+func finished():
+	var finalDeck: Array[PackedScene]
+	
+	for card in UI.find_child("GridContainer").get_children():
+		if card is BasicCard:
+			var packedScene = load(card.scenePath)
+			finalDeck.append(packedScene)
+	
+	Player.currentDeck = finalDeck
+	self.get_parent().finish_deck()
+"""var playerHand: Node2D
 
 @export var testingCards: Array[PackedScene]
 var hoveringCards: Array[BasicCard]
@@ -101,4 +154,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			draggedCard.position = orgPos
 		draggedCard = null
-		orgPos = Vector2.ZERO
+		orgPos = Vector2.ZERO"""

@@ -10,6 +10,9 @@ var collectionScene: PackedScene = preload("res://scenes/collection.tscn")
 var homeScene: PackedScene = preload("res://scenes/home.tscn")
 var packScene: PackedScene = preload("res://scenes/packs.tscn")
 
+var socket = WebSocketPeer.new()
+@export var webSocketUrl = "ws://localhost:8080"
+
 @onready var bottomButtons: HBoxContainer = $HBoxContainer
 
 var currentScene: availableScenes
@@ -17,10 +20,15 @@ var currentScene: availableScenes
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
+	Player.username = "simkah"
+	
 	var screenSize = get_viewport_rect()
 	bottomButtons.scale = Vector2(screenSize.end[0]/bottomButtons.size.x,screenSize.end[0]/bottomButtons.size.x)
 	bottomButtons.position.y = screenSize.end[1]-(40*bottomButtons.scale.y)
-
+	
+	if !Player.accessedDatabse:
+		var err = socket.connect_to_url(webSocketUrl)
+	
 	var dir = DirAccess.open("res://assets/createdObjects/cards")
 	if dir:
 		dir.list_dir_begin()
@@ -45,6 +53,35 @@ func _ready() -> void:
 			switch_scene(availableScenes.HOME)
 		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.PACK:
 			switch_scene(availableScenes.PACK)"""
+
+func _process(_delta: float) -> void:
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse:
+		socket.send_text(JSON.stringify({type = "database", username = Player.username}))
+		Player.accessedDatabse = true
+	
+	while socket.get_available_packet_count() > 0:
+		var packet = socket.get_packet()
+		var text = packet.get_string_from_utf8()
+		var data = JSON.parse_string(text)
+		
+		if data == null:
+			print("Invalid JSON")
+			continue
+		
+		for i in range(len(data)):
+			var id = int(data[i]["cardId"])
+			var count = int(data[i]["cardCount"])
+			for j in range(count):
+				var card: PackedScene
+				match id:
+					1:
+						card = load("res://assets/createdObjects/cards/testcard.tscn")
+					2:
+						card = load("res://assets/createdObjects/cards/testcard2.tscn")
+					3:
+						card = load("res://assets/createdObjects/cards/testcard3.tscn")
+				Player.cards.append(card)
+		socket.close()
 
 func call_scene_switch(newScene: String) -> void:
 	if newScene == "Collection" and currentScene != availableScenes.COLLECTION:
