@@ -2,7 +2,7 @@ extends Node2D
 
 var peer = WebRTCMultiplayerPeer.new()
 var socket = WebSocketPeer.new()
-@export var webSocketUrl = "ws://localhost:8080"
+@export var webSocketUrl = "ws://localhost:3000"
 var rtcConnections = {}
 var pendingCandidates = {}
 

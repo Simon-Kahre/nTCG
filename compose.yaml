@@ -1,0 +1,12 @@
+services:
+  game:
+    build: .
+    ports:
+      - "8080:80"
+
+  websocket:
+    build: ./websocket
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./database:/database

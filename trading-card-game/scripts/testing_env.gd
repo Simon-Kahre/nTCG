@@ -11,7 +11,7 @@ var homeScene: PackedScene = preload("res://scenes/home.tscn")
 var packScene: PackedScene = preload("res://scenes/packs.tscn")
 
 var socket = WebSocketPeer.new()
-@export var webSocketUrl = "ws://localhost:8080"
+@export var webSocketUrl = "ws://localhost:3000"
 
 @onready var bottomButtons: HBoxContainer = $HBoxContainer
 

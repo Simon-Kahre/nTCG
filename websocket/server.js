@@ -1,9 +1,9 @@
 const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("../database/fooAccounts.db");
+const db = new sqlite3.Database("/database/fooAccounts.db");
 
 const Websocket = require("ws");
 
-const server = new Websocket.Server({ port: 8080});
+const server = new Websocket.Server({ port: 3000});
 
 const roomCodes = [];
 
@@ -133,7 +133,7 @@ server.on("connection", (socket) => {
     });
 });
 
-console.log("Server listening on ws://localhost:8080");
+console.log("Server listening on ws://localhost: 3000");
 
 function generateRoomCode()
 {
