@@ -23,3 +23,9 @@ text = "Home"
 [node name="Pack" type="Button" parent="HBoxContainer" unique_id=799927432]
 layout_mode = 2
 text = "Pack"
+
+[node name="Label" type="Label" parent="." unique_id=971563904]
+offset_left = 101.0
+offset_top = 120.0
+offset_right = 141.0
+offset_bottom = 143.0

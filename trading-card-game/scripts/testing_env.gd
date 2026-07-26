@@ -20,7 +20,7 @@ var currentScene: availableScenes
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
-	Player.username = "simkah"
+	#Player.username = "simkah"
 	
 	var screenSize = get_viewport_rect()
 	bottomButtons.scale = Vector2(screenSize.end[0]/bottomButtons.size.x,screenSize.end[0]/bottomButtons.size.x)
@@ -55,7 +55,8 @@ func _ready() -> void:
 			switch_scene(availableScenes.PACK)"""
 
 func _process(_delta: float) -> void:
-	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse:
+	$Label.text = Player.username
+	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse  && Player.gotUsername:
 		socket.send_text(JSON.stringify({type = "database", username = Player.username}))
 		Player.accessedDatabse = true
 	

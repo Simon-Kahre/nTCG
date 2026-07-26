@@ -7,4 +7,6 @@ RUN mv /usr/share/nginx/html/tradingCardGame.html \
 
 RUN echo "NEW BUILD $(date)" > /usr/share/nginx/html/build.txt
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80

@@ -109,6 +109,12 @@ server.on("connection", (socket) => {
         console.log("Client disconnected");
 
         var sender = users[socket.username];
+
+        if(!sender)
+        {
+            return;
+        }
+        
         for(const username in users)
         {
             var user = users[username];

@@ -3,6 +3,14 @@ services:
     build: .
     ports:
       - "8080:80"
+    depends_on:
+      - login
+      - websocket
+
+  login:
+    build: ./login
+    expose:
+      - "4000"
 
   websocket:
     build: ./websocket
