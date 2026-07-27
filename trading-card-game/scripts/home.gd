@@ -39,7 +39,8 @@ func change_deck():
 	$VBoxContainer/Button2.visible = false
 	$VBoxContainer/Button.disabled = true
 	$VBoxContainer/Button2.disabled = true
-	get_parent().find_child("HBoxContainer").visible = false
+	if get_parent().find_child("HBoxContainer"):
+		get_parent().find_child("HBoxContainer").visible = false
 	for child in self.get_children():
 		if child.name == "DeckBuilder":
 			child.update_scroll_container()
@@ -54,7 +55,8 @@ func finish_deck():
 	$VBoxContainer/Button2.visible = true
 	$VBoxContainer/Button.disabled = false
 	$VBoxContainer/Button2.disabled = false
-	get_parent().find_child("HBoxContainer").visible = true
+	if get_parent().find_child("HBoxContainer"):
+		get_parent().find_child("HBoxContainer").visible = true
 	for child in self.get_children():
 		if child.name == "DeckBuilder":
 			child.visible = false
