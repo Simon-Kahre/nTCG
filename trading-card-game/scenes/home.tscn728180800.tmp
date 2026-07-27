@@ -5,7 +5,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_hhmql"]
 font = ExtResource("2_u4wd2")
-font_size = 182
 
 [node name="Home" type="Node2D" unique_id=2091955014]
 script = ExtResource("1_krot7")
@@ -16,20 +15,15 @@ offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=876240781]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_u4wd2")
-theme_override_font_sizes/font_size = 182
 text = "Challenge Player"
 
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=451314417]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_u4wd2")
-theme_override_font_sizes/font_size = 182
 text = "Change Deck"
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=423486107]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_u4wd2")
-theme_override_font_sizes/font_size = 66
+theme_override_font_sizes/font_size = 97
 text = "You need a deck
 first!"
 label_settings = SubResource("LabelSettings_hhmql")
