@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ba2xl67v4d72v" path="res://scripts/deck_builder.gd" id="1_jlj4b"]
 [ext_resource type="Texture2D" uid="uid://dj0a37c6ieyme" path="res://assets/sprites/icon5.svg" id="1_rkkd4"]
+[ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="3_uu408"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
@@ -187,6 +188,8 @@ texture = ExtResource("1_rkkd4")
 
 [node name="Confirm" type="Button" parent="UI" unique_id=1772663424]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uu408")
+theme_override_font_sizes/font_size = 62
 text = "Confirm"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI" unique_id=632949578]
