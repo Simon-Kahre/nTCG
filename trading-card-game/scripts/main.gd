@@ -1,15 +1,10 @@
 extends Node2D
 
 var socket = WebSocketPeer.new()
-@export var webSocketUrl = "ws://localhost:3000"
-
 
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
-	#Player.username = "simkah"
-	
-	
 	if !Player.accessedDatabse:
 		var err = socket.connect_to_url(Player.websocketURL)
 	
@@ -25,15 +20,6 @@ func _ready() -> void:
 		print("An error has occured. Path for cards is not found.")
 	
 	Player.load_player(allCards)
-
-"""func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_C and currentScene != availableScenes.COLLECTION:
-			switch_scene(availableScenes.COLLECTION)
-		elif event.pressed and event.keycode == KEY_SPACE and currentScene != availableScenes.HOME:
-			switch_scene(availableScenes.HOME)
-		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.PACK:
-			switch_scene(availableScenes.PACK)"""
 
 func _process(_delta: float) -> void:
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse  && Player.gotUsername:

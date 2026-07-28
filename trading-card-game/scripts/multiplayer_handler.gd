@@ -2,7 +2,6 @@ extends Node2D
 
 var peer = WebRTCMultiplayerPeer.new()
 var socket = WebSocketPeer.new()
-@export var webSocketUrl = "ws://localhost:3000"
 var rtcConnections = {}
 var pendingCandidates = {}
 
@@ -19,9 +18,6 @@ var opacity: float = 0.0
 
 var confirmCount: int = 0
 var turnCount: int = 1
-
-const PORT = 12345
-const SERVERADDRESS = "localhost"
 
 @onready var combatNode = $Combat
 
@@ -57,10 +53,7 @@ func _process(delta: float) -> void:
 				roomCode = roomCodeInput.get_line(0)
 			}
 			socket.send_text(JSON.stringify(message))
-		"""var message = {
-			host = isHost,
-			username = "simkah"
-		}"""
+		
 		sentInitialData = true
 	while socket.get_available_packet_count() > 0:
 		var packet = socket.get_packet()
@@ -94,25 +87,19 @@ func _process(delta: float) -> void:
 				get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
 
 func host_button_pressed():
-	var err = socket.connect_to_url(webSocketUrl)
+	var err = socket.connect_to_url(Player.websocketURL)
 	if err == OK:
 		disable_buttons()
 		host = true
 		peer.create_server()
 		multiplayer.multiplayer_peer = peer
-	#peer.create_server(PORT)
-	
 
 func join_button_pressed():
-	var err = socket.connect_to_url(webSocketUrl)
+	var err = socket.connect_to_url(Player.websocketURL)
 	if err == OK:
 		pass
-		#disable_buttons()
 		peer.create_client(2)
 		multiplayer.multiplayer_peer = peer
-	
-	#peer.create_client(SERVERADDRESS, PORT)
-	
 
 func disable_buttons():
 	combatNode.visible = true

@@ -43,8 +43,6 @@ func _on_me_response(result, response_code, headers, body):
 		var data = JSON.parse_string(body.get_string_from_utf8())
 		print("Logged in as:", data["user"])
 		username = str(data["user"])
-		#username = "simkah"
 		gotUsername = true
 	else:
-		#username = "Failed"
 		print("Not logged in")

@@ -11,7 +11,7 @@ func _ready() -> void:
 	var screenSize = get_viewport_rect()
 	uiButtons.scale = Vector2(screenSize.end[0]/uiButtons.size.x*2/5, screenSize.end[0]/uiButtons.size.x*2/5)
 	uiButtons.position = Vector2(screenSize.end[0]/2-(uiButtons.size.x/2*uiButtons.scale.x), screenSize.end[1]/4)
-	#infoLabel.add_theme_font_size_override()
+	
 	var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
 	deckBuilder.name = "DeckBuilder"
 	self.add_child(deckBuilder)
