@@ -34,9 +34,9 @@ func main() {
 	gameAddress := os.Getenv("GAME_ADDRESS")
 	gamePort := os.Getenv("GAME_PORT")
 
-	ssoURL := fmt.Sprintf("http://%s:%s", ssoAddress, ssoPort)
+	ssoURL := fmt.Sprintf("%s:%s", ssoAddress, ssoPort)
 
-	gameURL := fmt.Sprintf("http://%s:%s", gameAddress, gamePort)
+	gameURL := fmt.Sprintf("%s:%s", gameAddress, gamePort)
 
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 

@@ -24,23 +24,23 @@
 
 
 <script>
-    const socket = new WebSocket("ws://localhost:3000");
+    const socket = new WebSocket("ws://" + window.location.host + "/socket");
 
     socket.addEventListener("open", () => {
         console.log("Connected to server!");
     });
 
     socket.addEventListener("message", (event) => {
-    const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
 
-    if (data.type === "databaseUpdated") {
-        console.log(data.message);
+        if (data.type === "databaseUpdated") {
+            console.log(data.message);
 
-        if (data.success) {
-            alert("Database updated!");
+            if (data.success) {
+                alert("Database updated!");
+            }
         }
-    }
-});
+    });
 
     document.getElementById("send").addEventListener("click", () => {
         if (socket.readyState === WebSocket.OPEN) {
