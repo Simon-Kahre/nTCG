@@ -50,8 +50,8 @@ func _process(_delta: float) -> void:
 			continue
 		
 		for i in range(len(data)):
-			var id = int(data[i]["cardId"])
-			var count = int(data[i]["cardCount"])
+			var id = int(data[i]["cardid"])
+			var count = int(data[i]["cardcount"])
 			for j in range(count):
 				var card: PackedScene
 				match id:

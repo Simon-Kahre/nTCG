@@ -16,5 +16,34 @@ services:
     build: ./websocket
     ports:
       - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: fooAccounts
+      DB_USER: postgres
+      DB_PASSWORD: password
+      SERVER_PORT: 3000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: game-postgres
+    environment:
+      POSTGRES_DB: fooAccounts
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
     volumes:
-      - ./database:/database
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+volumes:
+  postgres_data:
