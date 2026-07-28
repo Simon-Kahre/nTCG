@@ -61,5 +61,9 @@ func _process(_delta: float) -> void:
 						card = load("res://assets/createdObjects/cards/testcard2.tscn")
 					3:
 						card = load("res://assets/createdObjects/cards/testcard3.tscn")
+					4:
+						card = load("res://assets/createdObjects/cards/testcard4.tscn")
+					5:
+						card = load("res://assets/createdObjects/cards/testcard.tscn")
 				Player.cards.append(card)
 		socket.close()
