@@ -143,8 +143,6 @@ func main() {
 			Secure: false,
 		})
 
-		//redirect := "http://localhost:8080"
-
 		http.Redirect(
 			w,
 			r,
