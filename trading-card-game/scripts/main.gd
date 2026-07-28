@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 	
 	if !Player.accessedDatabse:
-		var err = socket.connect_to_url(webSocketUrl)
+		var err = socket.connect_to_url(Player.websocketURL)
 	
 	var dir = DirAccess.open("res://assets/createdObjects/cards")
 	if dir:

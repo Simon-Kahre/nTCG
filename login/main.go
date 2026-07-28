@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"os"
 )
 
 type TokenResponse struct {
@@ -18,16 +19,34 @@ type TokenResponse struct {
 	Scope       string `json:"scope"`
 }
 
+var ssoAddress string
+var ssoPort string
+var gameAddress string
+var gamePort string
+
+var ssoURL string
+
+var gameURL string
+
 func main() {
+	ssoAddress := os.Getenv("SSO_ADDRESS")
+	ssoPort := os.Getenv("SSO_PORT")
+	gameAddress := os.Getenv("GAME_ADDRESS")
+	gamePort := os.Getenv("GAME_PORT")
+
+	ssoURL := fmt.Sprintf("http://%s:%s", ssoAddress, ssoPort)
+
+	gameURL := fmt.Sprintf("http://%s:%s", gameAddress, gamePort)
+
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 
 		params := url.Values{}
 		params.Set("client_id", "client-id")
-		params.Set("redirect_uri", "http://localhost:8080/oidcc/callback")
+		params.Set("redirect_uri", gameURL + "/oidcc/callback")
 		params.Set("response_type", "code")
 		params.Set("scope", "openid")
 
-		loginURL := "http://localhost:1339/authorize?" + params.Encode()
+		loginURL := ssoURL + "/authorize?" + params.Encode()
 
 		http.Redirect(
 			w,
@@ -51,11 +70,11 @@ func main() {
 		data.Set("client_id", "client-id")
 		data.Set("client_secret", "client-secret")
 		data.Set("code", code)
-		data.Set("redirect_uri", "http://localhost:8080/oidcc/callback")
+		data.Set("redirect_uri", gameURL + "/oidcc/callback")
 
 		req, err := http.NewRequest(
 			"POST",
-			"http://host.docker.internal:1339/oauth/token",
+			"http://host.docker.internal:" + ssoPort + "/oauth/token",
 			strings.NewReader(data.Encode()),
 		)
 
@@ -124,10 +143,12 @@ func main() {
 			Secure: false,
 		})
 
+		//redirect := "http://localhost:8080"
+
 		http.Redirect(
 			w,
 			r,
-			"http://localhost:8080",
+			gameURL,
 			http.StatusFound,
 		)
 	})
@@ -167,7 +188,7 @@ func enableCORS(w http.ResponseWriter) {
 
 	w.Header().Set(
 		"Access-Control-Allow-Origin",
-		"http://localhost:8080",
+		gameURL,
 	)
 
 	w.Header().Set(

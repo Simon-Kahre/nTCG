@@ -11,6 +11,11 @@ services:
     build: ./login
     expose:
       - "4000"
+    environment:
+      SSO_ADDRESS: localhost
+      SSO_PORT: 1339
+      GAME_ADDRESS: localhost
+      GAME_PORT: 8080
 
   websocket:
     build: ./websocket
