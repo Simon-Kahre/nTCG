@@ -16,6 +16,7 @@ services:
       SSO_PORT: 1339
       GAME_ADDRESS: localhost
       GAME_PORT: 8080
+      LOGIN_PORT: 4000
 
   websocket:
     build: ./websocket

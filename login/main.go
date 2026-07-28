@@ -179,8 +179,8 @@ func main() {
 		})
 	})
 
-	fmt.Println("Running on http://localhost:4000")
-	http.ListenAndServe(":4000", nil)
+	fmt.Println("Running on http://localhost:" + os.Getenv("LOGIN_PORT"))
+	http.ListenAndServe(":" + os.Getenv("LOGIN_PORT"), nil)
 }
 
 
