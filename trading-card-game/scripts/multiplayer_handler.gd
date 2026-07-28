@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 				opacity = 3
 			"playerLeft":
 				socket.close()
-				get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
+				get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func host_button_pressed():
 	var err = socket.connect_to_url(Player.websocketURL)
@@ -216,8 +216,8 @@ func debug(text):
 	debugLabel.text += "\n" + str(text)
 
 func back_pressed():
-	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
+	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func surrender():
 	socket.close()
-	get_tree().change_scene_to_packed(load("res://scenes/testingEnv.tscn"))
+	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
