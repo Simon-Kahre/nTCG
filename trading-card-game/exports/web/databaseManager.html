@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+
+  <form>
+    <label for="username">Vilken användare?</label><br>
+    <input id="username" type="text"><br><br>
+    <label for="cardId">Vilket kort?</label><br>
+    <select id="cardId">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select><br><br>
+    <label for="cardCount">Antal kort:</label><br>
+    <input type="number" id="cardCount" min="1"><br>
+    <button type="button" id="send">Send Data</button>
+  </form>
+  
+
+
+<script>
+    // Connect to your WebSocket server
+    const socket = new WebSocket("ws://localhost:3000");
+
+    socket.addEventListener("open", () => {
+        console.log("Connected to server!");
+    });
+
+    socket.addEventListener("message", (event) => {
+    const data = JSON.parse(event.data);
+
+    if (data.type === "databaseUpdated") {
+        console.log(data.message);
+
+        if (data.success) {
+            alert("Database updated!");
+        }
+    }
+});
+
+    document.getElementById("send").addEventListener("click", () => {
+        if (socket.readyState === WebSocket.OPEN) {
+            const username = document.getElementById("username").value;
+            const cardId = Number(document.getElementById("cardId").value);
+            const increase = Number(document.getElementById("cardCount").value);
+
+            socket.send(JSON.stringify({
+                type: "manageData",
+                username,
+                cardId,
+                increase
+            }));
+
+            console.log("Data sent!");
+        } else {
+            console.log("WebSocket is not connected.");
+        }
+    });
+</script>
+
+</body>
+</html>

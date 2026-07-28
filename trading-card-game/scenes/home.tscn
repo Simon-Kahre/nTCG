@@ -3,6 +3,60 @@
 [ext_resource type="Script" uid="uid://buckokc7gxm47" path="res://scripts/home.gd" id="1_krot7"]
 [ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="2_u4wd2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d545f"]
+bg_color = Color(0.73098576, 0.2799163, 3.85046e-07, 1)
+border_width_left = 30
+border_color = Color(0.93694395, 0.36664718, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_reixx"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4wd2"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ts7t"]
+bg_color = Color(0.7294118, 0.2784314, 0, 1)
+border_width_left = 30
+border_color = Color(0.9372549, 0.3647059, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uhids"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w18ys"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [sub_resource type="LabelSettings" id="LabelSettings_hhmql"]
 font = ExtResource("2_u4wd2")
 font_size = 182
@@ -11,20 +65,26 @@ font_size = 182
 script = ExtResource("1_krot7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=156649726]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 2300.0
+offset_bottom = 783.0
 theme_override_constants/separation = 24
 
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=876240781]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_u4wd2")
 theme_override_font_sizes/font_size = 182
+theme_override_styles/normal = SubResource("StyleBoxFlat_d545f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_reixx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u4wd2")
 text = "Challenge Player"
 
 [node name="Button2" type="Button" parent="VBoxContainer" unique_id=451314417]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_u4wd2")
 theme_override_font_sizes/font_size = 182
+theme_override_styles/normal = SubResource("StyleBoxFlat_2ts7t")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uhids")
+theme_override_styles/hover = SubResource("StyleBoxFlat_w18ys")
 text = "Change Deck"
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=423486107]

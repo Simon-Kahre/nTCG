@@ -101,8 +101,77 @@ server.on("connection", (socket) => {
                 });
             
         }
+        else if(data.type == "manageData")
+        {
+            console.log("Changing Database")
+            db.get("SELECT cardCount FROM groupCards JOIN users ON groupCards.userGroup = users.userGroup WHERE users.userId = $username AND cardId = $Id ;", 
+                {$username: data.username, $Id: data.cardId}, (err, row) => 
+                {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    console.log(row);
+
+                    if (row)
+                    {
+                        console.log("Card existed")
+                        const count = row.cardCount + Number(data.increase);
+
+                        db.run(
+                            `UPDATE groupCards
+                            SET cardCount = ?
+                            WHERE userGroup = (
+                                SELECT userGroup
+                                FROM users
+                                WHERE userId = ?
+                            )
+                            AND cardId = ?`,
+                            [count, data.username, data.cardId],
+                            function(err) {
+                                if (err) {
+                                    console.error(err);
+                                    return;
+                                }
+
+                                socket.send(JSON.stringify({
+                                    type: "databaseUpdated",
+                                    success: true,
+                                    message: "Card count updated"
+                                }));
+                                console.log("Rows updated:", this.changes);
+                            }
+                        );
+                    }
+                    else
+                    {
+                        console.log("Card didn't exist")
+                        db.run(
+                            `INSERT INTO groupCards (userGroup, cardId, cardCount)
+                            SELECT userGroup, ?, ?
+                            FROM users
+                            WHERE userId = ?;`,
+                            [data.cardId, Number(data.increase), data.username],
+                            function(err) {
+                                if (err) {
+                                    console.error(err);
+                                    return;
+                                }
+
+                                console.log("Inserted row id:", this.lastID);
+                                socket.send(JSON.stringify({
+                                    type: "databaseUpdated",
+                                    success: true,
+                                    message: "Card added"
+                                }));
+                            }
+                        );
+                    }
+                    //socket.send(JSON.stringify(row));
+                });
+        }
         //console.log("Recieved:", message.toString());
-        console.log(users);
+        //console.log(users);
     };
 
     socket.on("close", () => {
