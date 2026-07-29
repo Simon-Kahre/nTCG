@@ -7,9 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mcr5"]
-bg_color = Color(0.7294118, 0.2784314, 0, 1)
+bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
 border_width_left = 30
-border_color = Color(0.9372549, 0.3647059, 0, 1)
+border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60

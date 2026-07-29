@@ -22,8 +22,8 @@ func update_scroll_container():
 			tempButton.icon = tempCard.get_child(0).texture
 			tempButton.toggle_mode = true
 			tempButton.connect("toggled", card_clicked.bind(Player.cards[i], tempButton))
-			tempButton.add_theme_color_override("icon_pressed_color", Color(1.101, 0.696, 0.0))
-			tempButton.add_theme_color_override("icon_hover_pressed_color", Color(1.101, 0.696, 0.0))
+			tempButton.add_theme_color_override("icon_pressed_color", Color(0.808, 0.161, 0.443))
+			tempButton.add_theme_color_override("icon_hover_pressed_color", Color(0.808, 0.161, 0.443))
 			tempButton.add_theme_stylebox_override("pressed", load("res://assets/styleBox/deckSelection.tres"))
 			tempButton.add_theme_stylebox_override("hover_pressed", load("res://assets/styleBox/deckSelection.tres"))
 			
