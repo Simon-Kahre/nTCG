@@ -6,10 +6,15 @@
 [ext_resource type="Script" uid="uid://dmjhklby8twkv" path="res://scripts/multiplayer_handler.gd" id="1_t74xm"]
 [ext_resource type="Script" uid="uid://bi5qrt6m4ijga" path="res://scripts/locationScore.gd" id="2_hrlpu"]
 [ext_resource type="PackedScene" uid="uid://2y6gt8te51gf" path="res://assets/createdObjects/cards/testcard2.tscn" id="2_mak3c"]
+[ext_resource type="Texture2D" uid="uid://scs3inbuo1f8" path="res://assets/sprites/Pixel-Circle.png" id="2_t74xm"]
 [ext_resource type="PackedScene" uid="uid://chcbavh6ckvuy" path="res://assets/createdObjects/cards/testcard4.tscn" id="3_3q7sh"]
 [ext_resource type="PackedScene" uid="uid://byjjebq6qijrk" path="res://assets/createdObjects/cards/testcard3.tscn" id="3_spaix"]
 [ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
 [ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="10_spaix"]
+
+[sub_resource type="Gradient" id="Gradient_felwx"]
+offsets = PackedFloat32Array(0, 0.2626728, 0.47926268, 0.77880186, 1)
+colors = PackedColorArray(0.45882353, 0, 1, 0, 0.5119788, 0.028195394, 0.943147, 1, 0.65625733, 0.104725756, 0.7888317, 1, 0.9098039, 0.23921569, 0.5176471, 1, 0.9098039, 0.23921569, 0.5176471, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_spaix"]
 
@@ -33,12 +38,39 @@ corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_132iy"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_felwx"]
 content_margin_left = 40.0
 content_margin_right = 20.0
 bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
 border_width_left = 30
 border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjsle"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fq1n"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -64,8 +96,38 @@ corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b4pb0"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13pag"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [node name="MultiplayerHandler" type="Node2D" unique_id=1450386294]
 script = ExtResource("1_t74xm")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1415774530]
+amount = 50
+texture = ExtResource("2_t74xm")
+speed_scale = 0.7
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(500, 222.19)
+gravity = Vector2(0, -35)
+scale_amount_min = 0.01
+scale_amount_max = 0.08
+color_ramp = SubResource("Gradient_felwx")
 
 [node name="Combat" type="Node2D" parent="." unique_id=60488907]
 script = ExtResource("1_3q7sh")
@@ -185,6 +247,7 @@ theme_override_fonts/font = ExtResource("10_spaix")
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
+theme_override_styles/hover = SubResource("StyleBoxFlat_132iy")
 text = "Join"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer" unique_id=1296282416]
@@ -198,6 +261,8 @@ offset_transform_visual_only = false
 theme_override_fonts/font = ExtResource("10_spaix")
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_felwx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_qjsle")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
 text = "Host"
 
 [node name="TextEdit" type="TextEdit" parent="VBoxContainer" unique_id=150749077]
@@ -217,6 +282,8 @@ offset_transform_visual_only = false
 theme_override_fonts/font = ExtResource("10_spaix")
 theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_x8jxt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_b4pb0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_13pag")
 text = "Back"
 
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]

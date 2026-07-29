@@ -24,6 +24,9 @@ var turnCount: int = 1
 func _ready() -> void:
 	var screenSize = get_viewport_rect()
 	$VBoxContainer.position = Vector2(screenSize.end[0], screenSize.end[1])/2
+	var particles = $CPUParticles2D
+	particles.emission_rect_extents = Vector2(screenSize.end[0], screenSize.end[1])
+	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2
 	
 	combatNode.visible = false
 	infoLabel.modulate = Color(1,1,1,0)
