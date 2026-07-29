@@ -23,7 +23,7 @@ var turnCount: int = 1
 
 func _ready() -> void:
 	var screenSize = get_viewport_rect()
-	$VBoxContainer.position = Vector2(screenSize.end[0], screenSize.end[1])/2
+	$VBoxContainer.position = Vector2(screenSize.end[0]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x), screenSize.end[1]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x))
 	var particles = $CPUParticles2D
 	particles.emission_rect_extents = Vector2(screenSize.end[0], screenSize.end[1])
 	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2

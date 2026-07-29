@@ -225,12 +225,22 @@ text = "Confirm"
 [node name="ScrollContainer" type="ScrollContainer" parent="UI" unique_id=632949578]
 custom_minimum_size = Vector2(0, 265)
 layout_mode = 2
+theme_override_constants/scrollbar_h_separation = 20
 
-[node name="GridContainer" type="GridContainer" parent="UI/ScrollContainer" unique_id=876151881]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollContainer" unique_id=1010010668]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=126724705]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=876151881]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 12
 columns = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=442423961]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="finished"]
 [connection signal="pressed" from="UI/Confirm" to="." method="finished"]
