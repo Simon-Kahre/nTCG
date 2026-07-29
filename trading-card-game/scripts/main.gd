@@ -5,6 +5,11 @@ var socket = WebSocketPeer.new()
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
+	var screenSize = get_viewport_rect()
+	var particles = $CPUParticles2D
+	particles.emission_rect_extents = Vector2(screenSize.end[0], screenSize.end[1])
+	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2
+	
 	if !Player.accessedDatabse:
 		var err = socket.connect_to_url(Player.websocketURL)
 	
