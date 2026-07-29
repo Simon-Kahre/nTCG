@@ -6,6 +6,33 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mcr5"]
+bg_color = Color(0.7294118, 0.2784314, 0, 1)
+border_width_left = 30
+border_color = Color(0.9372549, 0.3647059, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5isr1"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu408"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [node name="DeckBuilder" type="Node2D" unique_id=2091054651]
 script = ExtResource("1_jlj4b")
 
@@ -190,6 +217,9 @@ texture = ExtResource("1_rkkd4")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_uu408")
 theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxFlat_0mcr5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5isr1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uu408")
 text = "Confirm"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI" unique_id=632949578]
