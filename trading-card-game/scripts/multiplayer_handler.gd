@@ -10,10 +10,10 @@ var host = false
 var roomCode: String = ""
 
 @onready var testingLabel: Label = $TestingLabel
-@onready var roomCodeInput: TextEdit = $AspectRatioContainer/TextEdit
+@onready var roomCodeInput: TextEdit = $VBoxContainer/TextEdit
 
 @onready var debugLabel: Label = $DebugLabel
-@onready var infoLabel = $AspectRatioContainer/Label
+@onready var infoLabel = $VBoxContainer/Label
 var opacity: float = 0.0
 
 var confirmCount: int = 0
@@ -22,6 +22,9 @@ var turnCount: int = 1
 @onready var combatNode = $Combat
 
 func _ready() -> void:
+	var screenSize = get_viewport_rect()
+	$VBoxContainer.position = Vector2(screenSize.end[0], screenSize.end[1])/2
+	
 	combatNode.visible = false
 	infoLabel.modulate = Color(1,1,1,0)
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -104,10 +107,7 @@ func join_button_pressed():
 func disable_buttons():
 	combatNode.visible = true
 	roomCodeInput.queue_free()
-	$AspectRatioContainer/Host.queue_free()
-	$AspectRatioContainer/Join.queue_free()
-	$AspectRatioContainer/Back.queue_free()
-	$AspectRatioContainer/TextEdit.queue_free()
+	$VBoxContainer.queue_free()
 
 func _on_peer_connected(peerId):
 	if multiplayer.is_server():
