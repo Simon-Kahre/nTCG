@@ -30,6 +30,8 @@ corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spaix"]
+content_margin_left = 40.0
+content_margin_right = 20.0
 bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
 border_width_left = 30
 border_color = Color(0, 0, 0, 1)
@@ -38,7 +40,20 @@ corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fq1n"]
+content_margin_left = 40.0
+content_margin_right = 20.0
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_132iy"]
+content_margin_left = 40.0
+content_margin_right = 20.0
 bg_color = Color(0.7411765, 0.7411765, 0, 1)
 border_width_left = 30
 border_color = Color(0.8980392, 0.8980392, 0, 1)
@@ -59,18 +74,11 @@ corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjsle"]
+content_margin_left = 40.0
+content_margin_right = 20.0
 bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
 border_width_left = 30
 border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fq1n"]
-bg_color = Color(0.7411765, 0.7411765, 0, 1)
-border_width_left = 30
-border_color = Color(0.8980392, 0.8980392, 0, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -185,16 +193,31 @@ shape = SubResource("RectangleShape2D_spaix")
 [node name="Confirm" type="Button" parent="Combat" unique_id=856894045]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
 text = "Confirm"
 
 [node name="Surrender" type="Button" parent="Combat" unique_id=1109387751]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
 text = "Surrender"
 
 [node name="Reset" type="Button" parent="Combat" unique_id=1119964765]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
 text = "Reset"
 
 [node name="TestingLabel" type="Label" parent="." unique_id=1280319589]
@@ -202,12 +225,14 @@ offset_left = 226.0
 offset_top = 76.0
 offset_right = 266.0
 offset_bottom = 99.0
+theme_override_fonts/font = ExtResource("10_spaix")
 
 [node name="DebugLabel" type="Label" parent="." unique_id=50530939]
 offset_left = 226.0
 offset_top = 318.0
 offset_right = 266.0
 offset_bottom = 341.0
+theme_override_fonts/font = ExtResource("10_spaix")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1895194962]
 offset_left = 174.56
