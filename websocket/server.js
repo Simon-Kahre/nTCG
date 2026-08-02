@@ -132,104 +132,171 @@ server.on("connection", (socket) => {
 
         // Uppdatera PostgreSQL
         else if (data.type == "manageData") {
-
+            if (!socket.userID) {
+                socket.send(JSON.stringify({
+                    type: "databaseUpdated",
+                    success: false,
+                    message: "Not authenticated"
+                }));
+                return;
+            }
             console.log("Changing Database");
 
             try {
-
-                const check = await db.query(
+                const result = await db.query(
                     `
-                    SELECT cardcount
-                    FROM groupcards
-                    JOIN users 
-                    ON groupcards.usergroup = users.usergroup
+                    SELECT usergroup
+                    FROM users
                     WHERE users.userid = $1
-                    AND cardid = $2;
                     `,
                     [
-                        data.username,
-                        data.cardId
+                        socket.userID
                     ]
                 );
 
+                if (result.rows.length === 0) {
+                    socket.send(JSON.stringify({
+                        type: "databaseUpdated",
+                        success: false,
+                        message: "User not found"
+                    }));
+                    return;
+                }
 
-                if (check.rows.length > 0) {
+                if (result.rows[0].usergroup !== "M") {
+                    socket.send(JSON.stringify({
+                        type: "databaseUpdated",
+                        success: false,
+                        message: "No permission"
+                    }));
+                    return;
+                }
 
-                    console.log("Card existed");
+                try {
 
-                    const count =
-                        check.rows[0].cardcount + Number(data.increase);
-
-
-                    await db.query(
+                    const check = await db.query(
                         `
-                        UPDATE groupcards
-                        SET cardcount = $1
-                        WHERE usergroup = (
-                            SELECT usergroup
-                            FROM users
-                            WHERE userid = $2
-                        )
-                        AND cardid = $3;
+                        SELECT cardcount
+                        FROM groupcards
+                        JOIN users 
+                        ON groupcards.usergroup = users.usergroup
+                        WHERE users.userid = $1
+                        AND cardid = $2;
                         `,
                         [
-                            count,
                             data.username,
                             data.cardId
                         ]
                     );
 
 
-                    socket.send(JSON.stringify({
-                        type: "databaseUpdated",
-                        success: true,
-                        message: "Card count updated"
-                    }));
+                    if (check.rows.length > 0) {
 
+                        console.log("Card existed");
+
+                        const count =
+                            check.rows[0].cardcount + Number(data.increase);
+
+
+                        await db.query(
+                            `
+                            UPDATE groupcards
+                            SET cardcount = $1
+                            WHERE usergroup = (
+                                SELECT usergroup
+                                FROM users
+                                WHERE userid = $2
+                            )
+                            AND cardid = $3;
+                            `,
+                            [
+                                count,
+                                data.username,
+                                data.cardId
+                            ]
+                        );
+
+
+                        socket.send(JSON.stringify({
+                            type: "databaseUpdated",
+                            success: true,
+                            message: "Card count updated"
+                        }));
+
+                    }
+
+                    else {
+
+                        console.log("Card didn't exist");
+
+
+                        await db.query(
+                            `
+                            INSERT INTO groupcards
+                            (
+                                usergroup,
+                                cardid,
+                                cardcount
+                            )
+
+                            SELECT 
+                                usergroup,
+                                $1,
+                                $2
+
+                            FROM users
+
+                            WHERE userid = $3;
+                            `,
+                            [
+                                data.cardId,
+                                Number(data.increase),
+                                data.username
+                            ]
+                        );
+
+
+                        socket.send(JSON.stringify({
+                            type: "databaseUpdated",
+                            success: true,
+                            message: "Card added"
+                        }));
+                    }
+
+
+                } catch (err) {
+                    console.error(err);
                 }
-
-                else {
-
-                    console.log("Card didn't exist");
-
-
-                    await db.query(
-                        `
-                        INSERT INTO groupcards
-                        (
-                            usergroup,
-                            cardid,
-                            cardcount
-                        )
-
-                        SELECT 
-                            usergroup,
-                            $1,
-                            $2
-
-                        FROM users
-
-                        WHERE userid = $3;
-                        `,
-                        [
-                            data.cardId,
-                            Number(data.increase),
-                            data.username
-                        ]
-                    );
-
-
-                    socket.send(JSON.stringify({
-                        type: "databaseUpdated",
-                        success: true,
-                        message: "Card added"
-                    }));
-                }
-
-
             } catch (err) {
                 console.error(err);
             }
+        }
+
+        else if (data.type == "authenticate") {
+
+
+            const result = await db.query(
+                `
+                SELECT userid
+                FROM users
+                WHERE userid = $1
+                `,
+                [
+                    data.user
+                ]
+            );
+
+            if (result.rows.length === 0) {
+                socket.close();
+                return;
+            }
+
+            socket.userID = data.user;
+
+            console.log("Authenticated:", socket.userID);
+
+            return;
+
         }
     };
 
