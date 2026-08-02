@@ -39,21 +39,21 @@ func main() {
 	gameURL := fmt.Sprintf("%s:%s", gameAddress, gamePort)
 
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		redirect := r.URL.Query().Get("redirect")
 
 		params := url.Values{}
 		params.Set("client_id", "client-id")
-		params.Set("redirect_uri", gameURL + "/oidcc/callback")
+		params.Set("redirect_uri", gameURL+"/oidcc/callback")
 		params.Set("response_type", "code")
 		params.Set("scope", "openid")
 
-		loginURL := ssoURL + "/authorize?" + params.Encode()
+		if redirect != "" {
+			params.Set("state", redirect)
+		}
 
-		http.Redirect(
-			w,
-			r,
-			loginURL,
-			http.StatusFound,
-		)
+		loginURL := ssoURL + "/authorize?" + params.Encode()
+		fmt.Println("Authorization URL:", loginURL)
+		http.Redirect(w, r, loginURL, http.StatusFound)
 	})
 
 	http.HandleFunc("/oidcc/callback", func(w http.ResponseWriter, r *http.Request) {
@@ -143,12 +143,15 @@ func main() {
 			Secure: false,
 		})
 
-		http.Redirect(
-			w,
-			r,
-			gameURL,
-			http.StatusFound,
-		)
+		destination := r.URL.Query().Get("state")
+
+		switch destination {
+			case "database":
+				http.Redirect(w, r, gameURL + "/databaseManager.html", http.StatusFound)
+			default:
+				// No redirect specified, or an unknown value
+				http.Redirect(w, r, gameURL, http.StatusFound)
+		}
 	})
 
 	http.HandleFunc("/me", func(w http.ResponseWriter, r *http.Request) {
