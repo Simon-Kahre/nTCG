@@ -21,9 +21,9 @@ colors = PackedColorArray(0.45882353, 0, 1, 0, 0.5119788, 0.028195394, 0.943147,
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t74xm"]
 content_margin_left = 40.0
 content_margin_right = 20.0
-bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
+bg_color = Color(0.8077228, 0.16007765, 0.44297108, 0.8)
 border_width_left = 30
-border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
+border_color = Color(0.90982777, 0.2400937, 0.5179158, 0.8)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -126,6 +126,7 @@ corner_radius_bottom_left = 60
 script = ExtResource("1_t74xm")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1415774530]
+visible = false
 amount = 50
 texture = ExtResource("2_t74xm")
 speed_scale = 0.7
@@ -198,6 +199,7 @@ theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t74xm")
 text = "Confirm"
 
 [node name="Surrender" type="Button" parent="Combat" unique_id=1109387751]
@@ -218,6 +220,7 @@ theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
 theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_t74xm")
 text = "Reset"
 
 [node name="TestingLabel" type="Label" parent="." unique_id=1280319589]
@@ -226,6 +229,7 @@ offset_top = 76.0
 offset_right = 266.0
 offset_bottom = 99.0
 theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 40
 
 [node name="DebugLabel" type="Label" parent="." unique_id=50530939]
 offset_left = 226.0
@@ -233,6 +237,7 @@ offset_top = 318.0
 offset_right = 266.0
 offset_bottom = 341.0
 theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 40
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=1895194962]
 offset_left = 174.56

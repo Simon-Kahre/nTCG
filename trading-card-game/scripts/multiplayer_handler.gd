@@ -90,7 +90,9 @@ func _process(delta: float) -> void:
 				opacity = 3
 			"playerLeft":
 				socket.close()
-				get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+				self.get_parent().return_to_home()
+				self.queue_free()
+				#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func host_button_pressed():
 	var err = socket.connect_to_url(Player.websocketURL)
@@ -114,6 +116,7 @@ func disable_buttons():
 
 func _on_peer_connected(peerId):
 	if multiplayer.is_server():
+		testingLabel.visible = false
 		$Combat/CombatStage.rpc_id(peerId, "set_opponent_id", 1)
 		$Combat/CombatStage.rpc_id(1, "set_opponent_id", peerId)
 		$Combat/CombatStage.enable_buttons.rpc()
@@ -219,8 +222,12 @@ func debug(text):
 	debugLabel.text += "\n" + str(text)
 
 func back_pressed():
-	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+	self.get_parent().return_to_home()
+	self.queue_free()
+	#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func surrender():
 	socket.close()
-	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+	self.get_parent().return_to_home()
+	self.queue_free()
+	#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))

@@ -58,3 +58,6 @@ func _process(_delta: float) -> void:
 						card = load("res://assets/createdObjects/cards/testcard.tscn")
 				Player.cards.append(card)
 		socket.close()
+
+func return_to_home():
+	self.find_child("Home").visible = true
