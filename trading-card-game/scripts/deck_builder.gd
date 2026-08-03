@@ -8,10 +8,10 @@ func _ready():
 	UI.position.x = 0
 	UI.position.y = 50
 	UI.find_child("GridContainer").add_theme_constant_override("h_separation", 50)
-	UI.scale = Vector2(screenSize.end[0]/(UI.size.x + 150), screenSize.end[0]/(720 + 150))
+	UI.scale = Vector2(screenSize.end[0]/(UI.size.x + 150), screenSize.end[0]/(UI.size.x + 150))
 	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0).get_child(1)
 	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
-	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y
+	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y
 	update_scroll_container()
 
 func update_scroll_container():
@@ -24,7 +24,7 @@ func update_scroll_container():
 			tempButton.icon = tempCard.get_child(0).texture
 			
 			tempButton.toggle_mode = true
-			if UI.find_child("Gridcontainer"):
+			if UI.find_child("GridContainer"):
 				tempButton.connect("toggled", card_clicked.bind(Player.cards[i], tempButton))
 				tempButton.add_theme_color_override("icon_pressed_color", Color(0.808, 0.161, 0.443))
 				tempButton.add_theme_color_override("icon_hover_pressed_color", Color(0.808, 0.161, 0.443))
@@ -51,6 +51,8 @@ func card_clicked(toggledOn: bool, cardScene: PackedScene, button: Button, conne
 				button.disconnect("toggled", card_clicked)
 				button.connect("toggled", card_clicked.bind(cardScene, button, slot))
 				return
+		button.toggle_mode = false
+		button.toggle_mode = true
 	else:
 		if connectedSlot:
 			connectedSlot.texture = load("res://assets/sprites/icon5.svg")
@@ -59,7 +61,7 @@ func card_clicked(toggledOn: bool, cardScene: PackedScene, button: Button, conne
 			connectedSlot.set_script(null)
 
 func finished():
-	if UI.find_child("Gridcontainer"):
+	if UI.find_child("GridContainer"):
 		var finalDeck: Array[PackedScene]
 		
 		for card in UI.find_child("GridContainer").get_children():

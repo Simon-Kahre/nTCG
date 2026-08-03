@@ -2,8 +2,8 @@ extends Node2D
 
 var opponentId: int = 0
 
-var supportDeck
-var attackDeck
+var supportDeck: Array[PackedScene]
+var attackDeck: Array[PackedScene]
 
 var betCount: int
 
@@ -43,14 +43,34 @@ func start_deck_building():
 		slot.texture = load("res://assets/sprites/icon5.svg")
 		deckBuilder.find_child("UI").get_child(1).add_child(slot)
 	self.add_child(deckBuilder)
+	deckBuilder.update_scroll_container()
 
 func confirm_deck():
 	for child: TextureRect in deckBuilder.find_child("UI").get_child(1).get_children():
 		if !child.get_script():
 			return
 	
+	for child: Button in deckBuilder.find_child("UI").get_child(3).get_child(0).get_child(1).get_children():
+		if child.button_pressed:
+			child.queue_free()
+
 	if deckBuilder.find_child("UI").get_child(0).text == "Attack Deck":
+		for child in deckBuilder.find_child("UI").get_child(1).get_children():
+			if child is BasicCard:
+				attackDeck.append(load(child.scenePath))
+			child.queue_free()
 		deckBuilder.find_child("UI").get_child(0).text = "Support Deck"
+		for i in range(betCount/2):
+			var slot = TextureRect.new()
+			slot.texture = load("res://assets/sprites/icon5.svg")
+			deckBuilder.find_child("UI").get_child(1).add_child(slot)
 	elif deckBuilder.find_child("UI").get_child(0).text == "Support Deck":
+		for child in deckBuilder.find_child("UI").get_child(1).get_children():
+			if child is BasicCard:
+				supportDeck.append(load(child.scenePath))
+			child.queue_free()
 		deckBuilder.queue_free()
+	
+	print(attackDeck)
+	print(supportDeck)
 	pass
