@@ -1,0 +1,4 @@
+github.com/zitadel/oidc/v3 v3.48.0 h1:bJmwMyBXeeC5y+i/tx1k7Lq+eLMYrPrVCNsB5fbujtA=
+github.com/zitadel/oidc/v3 v3.48.0/go.mod h1:HwoguOGo0eem0RK5Gb+P6Q4aQLVinJ9LhomlVEA57ck=
+golang.org/x/oauth2 v0.36.0 h1:peZ/1z27fi9hUOFCAZaHyrpWG5lwe0RJEEEeH0ThlIs=
+golang.org/x/oauth2 v0.36.0/go.mod h1:YDBUJMTkDnJS+A4BP4eZBjCqtokkg1hODuPjwiGPO7Q=

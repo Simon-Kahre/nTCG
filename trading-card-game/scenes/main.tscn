@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c5ynqehiijpeb"]
+
+[ext_resource type="Script" uid="uid://cc5lhh422yf62" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://d2740yerop1g" path="res://scenes/home.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://scs3inbuo1f8" path="res://assets/sprites/Pixel-Circle.png" id="3_sugp2"]
+
+[sub_resource type="Gradient" id="Gradient_g4v7s"]
+offsets = PackedFloat32Array(0, 0.2626728, 0.47926268, 0.77880186, 1)
+colors = PackedColorArray(0.45882353, 0, 1, 0, 0.5119788, 0.028195394, 0.943147, 1, 0.65625733, 0.104725756, 0.7888317, 1, 0.9098039, 0.23921569, 0.5176471, 1, 0.9098039, 0.23921569, 0.5176471, 0)
+
+[node name="Main" type="Node2D" unique_id=1447174633]
+script = ExtResource("1_o5qli")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1100431722]
+amount = 50
+texture = ExtResource("3_sugp2")
+speed_scale = 0.7
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(500, 222.19)
+gravity = Vector2(0, -35)
+scale_amount_min = 0.01
+scale_amount_max = 0.08
+color_ramp = SubResource("Gradient_g4v7s")
+
+[node name="Home" parent="." unique_id=2091955014 instance=ExtResource("2_0wfyh")]
