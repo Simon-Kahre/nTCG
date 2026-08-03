@@ -10,10 +10,10 @@ var host = false
 var roomCode: String = ""
 
 @onready var testingLabel: Label = $TestingLabel
-@onready var roomCodeInput: TextEdit = $AspectRatioContainer/TextEdit
+@onready var roomCodeInput: TextEdit = $VBoxContainer/TextEdit
 
 @onready var debugLabel: Label = $DebugLabel
-@onready var infoLabel = $AspectRatioContainer/Label
+@onready var infoLabel = $VBoxContainer/Label
 var opacity: float = 0.0
 
 var confirmCount: int = 0
@@ -22,6 +22,12 @@ var turnCount: int = 1
 @onready var combatNode = $Combat
 
 func _ready() -> void:
+	var screenSize = get_viewport_rect()
+	$VBoxContainer.position = Vector2(screenSize.end[0]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x), screenSize.end[1]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x))
+	var particles = $CPUParticles2D
+	particles.emission_rect_extents = Vector2(screenSize.end[0], screenSize.end[1])
+	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2
+	
 	combatNode.visible = false
 	infoLabel.modulate = Color(1,1,1,0)
 	multiplayer.peer_connected.connect(_on_peer_connected)
@@ -84,7 +90,9 @@ func _process(delta: float) -> void:
 				opacity = 3
 			"playerLeft":
 				socket.close()
-				get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+				self.get_parent().return_to_home()
+				self.queue_free()
+				#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func host_button_pressed():
 	var err = socket.connect_to_url(Player.websocketURL)
@@ -104,13 +112,11 @@ func join_button_pressed():
 func disable_buttons():
 	combatNode.visible = true
 	roomCodeInput.queue_free()
-	$AspectRatioContainer/Host.queue_free()
-	$AspectRatioContainer/Join.queue_free()
-	$AspectRatioContainer/Back.queue_free()
-	$AspectRatioContainer/TextEdit.queue_free()
+	$VBoxContainer.queue_free()
 
 func _on_peer_connected(peerId):
 	if multiplayer.is_server():
+		testingLabel.visible = false
 		$Combat/CombatStage.rpc_id(peerId, "set_opponent_id", 1)
 		$Combat/CombatStage.rpc_id(1, "set_opponent_id", peerId)
 		$Combat/CombatStage.enable_buttons.rpc()
@@ -216,8 +222,12 @@ func debug(text):
 	debugLabel.text += "\n" + str(text)
 
 func back_pressed():
-	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+	self.get_parent().return_to_home()
+	self.queue_free()
+	#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
 
 func surrender():
 	socket.close()
-	get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))
+	self.get_parent().return_to_home()
+	self.queue_free()
+	#get_tree().change_scene_to_packed(load("res://scenes/main.tscn"))

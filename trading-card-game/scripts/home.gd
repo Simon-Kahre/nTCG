@@ -9,7 +9,7 @@ func _ready() -> void:
 	infoLabel.modulate = Color(1,1,1,0)
 	
 	var screenSize = get_viewport_rect()
-	uiButtons.scale = Vector2(screenSize.end[0]/uiButtons.size.x*2/5, screenSize.end[0]/uiButtons.size.x*2/5)
+	uiButtons.scale = Vector2(screenSize.end[0]/uiButtons.size.x*4/5, screenSize.end[0]/uiButtons.size.x*4/5)
 	uiButtons.position = Vector2(screenSize.end[0]/2-(uiButtons.size.x/2*uiButtons.scale.x), screenSize.end[1]/4)
 	
 	var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
@@ -28,8 +28,10 @@ func _process(delta: float) -> void:
 			infoLabel.modulate = Color(1,1,1,opacity)
 
 func challenge_player():
-	if len(Player.currentDeck) > 9:
-		get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
+	if len(Player.currentDeck) > -1:
+		self.visible = false
+		self.get_parent().add_child(load("res://scenes/Combat.tscn").instantiate())
+		#get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))
 	else:
 		print("You need a deck first")
 		opacity = 3

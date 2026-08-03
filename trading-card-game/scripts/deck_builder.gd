@@ -8,7 +8,7 @@ func _ready():
 	UI.position.x = 50
 	UI.find_child("GridContainer").add_theme_constant_override("h_separation", 50)
 	UI.scale = Vector2(screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50), screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50))
-	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0)
+	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0).get_child(1)
 	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
 	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y
 	update_scroll_container()
@@ -22,8 +22,10 @@ func update_scroll_container():
 			tempButton.icon = tempCard.get_child(0).texture
 			tempButton.toggle_mode = true
 			tempButton.connect("toggled", card_clicked.bind(Player.cards[i], tempButton))
-			tempButton.add_theme_color_override("icon_pressed_color", Color(1.101, 0.696, 0.0))
-			tempButton.add_theme_color_override("icon_hover_pressed_color", Color(1.101, 0.696, 0.0))
+			tempButton.add_theme_color_override("icon_pressed_color", Color(0.808, 0.161, 0.443))
+			tempButton.add_theme_color_override("icon_hover_pressed_color", Color(0.808, 0.161, 0.443))
+			tempButton.add_theme_stylebox_override("normal", load("res://assets/styleBox/deckSelectionNotSelected.tres"))
+			tempButton.add_theme_stylebox_override("hover", load("res://assets/styleBox/deckSelectionNotSelected.tres"))
 			tempButton.add_theme_stylebox_override("pressed", load("res://assets/styleBox/deckSelection.tres"))
 			tempButton.add_theme_stylebox_override("hover_pressed", load("res://assets/styleBox/deckSelection.tres"))
 			
