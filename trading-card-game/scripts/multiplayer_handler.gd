@@ -117,8 +117,7 @@ func disable_buttons():
 		combatNode.find_child("Card Count Picker").visible = true
 		var optionButton: OptionButton = combatNode.find_child("Card Count Picker").get_child(1)
 		for i in range(floori(len(Player.cards)/2)):
-			if i:
-				optionButton.add_item(str(i*2))
+			optionButton.add_item(str(i*2+2))
 	roomCodeInput.queue_free()
 	$VBoxContainer.queue_free()
 
