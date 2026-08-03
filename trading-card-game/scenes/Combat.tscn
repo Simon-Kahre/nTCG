@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://byjjebq6qijrk" path="res://assets/createdObjects/cards/testcard3.tscn" id="3_spaix"]
 [ext_resource type="PackedScene" uid="uid://c4yebayx7t6l3" path="res://assets/createdObjects/cards/testcard.tscn" id="4_spaix"]
 [ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="10_spaix"]
+[ext_resource type="Script" uid="uid://c0dijye05f6cd" path="res://scenes/battle_stage.gd" id="12_felwx"]
 
 [sub_resource type="Gradient" id="Gradient_felwx"]
 offsets = PackedFloat32Array(0, 0.2626728, 0.47926268, 0.77880186, 1)
@@ -21,9 +22,9 @@ colors = PackedColorArray(0.45882353, 0, 1, 0, 0.5119788, 0.028195394, 0.943147,
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t74xm"]
 content_margin_left = 40.0
 content_margin_right = 20.0
-bg_color = Color(0.8077228, 0.16007765, 0.44297108, 0.8)
+bg_color = Color(0.8077228, 0.16007765, 0.44297108, 1)
 border_width_left = 30
-border_color = Color(0.90982777, 0.2400937, 0.5179158, 0.8)
+border_color = Color(0.90982777, 0.2400937, 0.5179158, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -139,10 +140,12 @@ scale_amount_max = 0.08
 color_ramp = SubResource("Gradient_felwx")
 
 [node name="Combat" type="Node2D" parent="." unique_id=60488907]
+visible = false
 script = ExtResource("1_3q7sh")
 testingCards = Array[PackedScene]([ExtResource("2_mak3c"), ExtResource("3_spaix"), ExtResource("3_3q7sh"), ExtResource("4_spaix")])
 
 [node name="CombatStage" type="HBoxContainer" parent="Combat" unique_id=1135887533]
+visible = false
 offset_right = 564.0
 offset_bottom = 382.0
 theme_override_constants/separation = 90
@@ -190,8 +193,10 @@ scale = Vector2(6.4, 15)
 shape = SubResource("RectangleShape2D_spaix")
 
 [node name="PlayerHand" type="Node2D" parent="Combat" unique_id=851330119]
+visible = false
 
 [node name="Confirm" type="Button" parent="Combat" unique_id=856894045]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("10_spaix")
@@ -203,6 +208,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_t74xm")
 text = "Confirm"
 
 [node name="Surrender" type="Button" parent="Combat" unique_id=1109387751]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("10_spaix")
@@ -213,6 +219,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_5fq1n")
 text = "Surrender"
 
 [node name="Reset" type="Button" parent="Combat" unique_id=1119964765]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 theme_override_fonts/font = ExtResource("10_spaix")
@@ -315,6 +322,34 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_x8jxt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_b4pb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_13pag")
 text = "Back"
+
+[node name="Battle Stage" type="Node2D" parent="." unique_id=1338581229]
+script = ExtResource("12_felwx")
+
+[node name="Card Count Picker" type="VBoxContainer" parent="Battle Stage" unique_id=1549742340]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Battle Stage/Card Count Picker" unique_id=1523866288]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+text = "Number of
+cards"
+horizontal_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Battle Stage/Card Count Picker" unique_id=1246555215]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
+theme_override_styles/hover = SubResource("StyleBoxFlat_132iy")
+item_count = 2
+popup/item_0/text = "1"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 1
 
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Join" to="." method="join_button_pressed"]

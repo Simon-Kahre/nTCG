@@ -19,9 +19,10 @@ var opacity: float = 0.0
 var confirmCount: int = 0
 var turnCount: int = 1
 
-@onready var combatNode = $Combat
+var combatNode
 
 func _ready() -> void:
+	combatNode = $"Battle Stage"
 	var screenSize = get_viewport_rect()
 	$VBoxContainer.position = Vector2(screenSize.end[0]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x), screenSize.end[1]/2-($VBoxContainer.size.x/2*$VBoxContainer.scale.x))
 	var particles = $CPUParticles2D
@@ -29,6 +30,7 @@ func _ready() -> void:
 	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2
 	
 	combatNode.visible = false
+	combatNode.find_child("Card Count Picker").visible = false
 	infoLabel.modulate = Color(1,1,1,0)
 	multiplayer.peer_connected.connect(_on_peer_connected)
 
@@ -97,8 +99,8 @@ func _process(delta: float) -> void:
 func host_button_pressed():
 	var err = socket.connect_to_url(Player.websocketURL)
 	if err == OK:
-		disable_buttons()
 		host = true
+		disable_buttons()
 		peer.create_server()
 		multiplayer.multiplayer_peer = peer
 
@@ -111,6 +113,8 @@ func join_button_pressed():
 
 func disable_buttons():
 	combatNode.visible = true
+	if !host:
+		combatNode.find_child("Card Count Picker").visible = true
 	roomCodeInput.queue_free()
 	$VBoxContainer.queue_free()
 
