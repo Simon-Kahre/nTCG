@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 			infoLabel.modulate = Color(1,1,1,opacity)
 
 func challenge_player():
-	if len(Player.currentDeck) > -1:
+	if len(Player.cards) > 1:
 		self.visible = false
 		self.get_parent().add_child(load("res://scenes/Combat.tscn").instantiate())
 		#get_tree().change_scene_to_packed(load("res://scenes/Combat.tscn"))

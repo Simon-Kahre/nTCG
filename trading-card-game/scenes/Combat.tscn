@@ -123,6 +123,33 @@ corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_040v5"]
+bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
+border_width_left = 30
+border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuxku"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qnt1"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
 [node name="MultiplayerHandler" type="Node2D" unique_id=1450386294]
 script = ExtResource("1_t74xm")
 
@@ -346,7 +373,17 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
 theme_override_styles/hover = SubResource("StyleBoxFlat_132iy")
 
+[node name="Confirm" type="Button" parent="Battle Stage/Card Count Picker" unique_id=678682158]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxFlat_040v5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xuxku")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7qnt1")
+text = "Confirm"
+
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Join" to="." method="join_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Host" to="." method="host_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Back" to="." method="back_pressed"]
+[connection signal="pressed" from="Battle Stage/Card Count Picker/Confirm" to="Battle Stage" method="confirm_count"]
