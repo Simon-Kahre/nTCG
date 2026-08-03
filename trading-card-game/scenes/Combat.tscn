@@ -345,11 +345,6 @@ theme_override_font_sizes/font_size = 80
 theme_override_styles/normal = SubResource("StyleBoxFlat_t74xm")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_spaix")
 theme_override_styles/hover = SubResource("StyleBoxFlat_132iy")
-item_count = 2
-popup/item_0/text = "1"
-popup/item_0/id = 0
-popup/item_1/text = "2"
-popup/item_1/id = 1
 
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Join" to="." method="join_button_pressed"]

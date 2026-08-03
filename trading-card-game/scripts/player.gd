@@ -17,6 +17,13 @@ var GAME_URL = "localhost"
 var GAME_PORT = "8080"
 
 func _ready() -> void:
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	cards.append(load("res://assets/createdObjects/cards/testcard2.tscn"))
+	
 	var request = HTTPRequest.new()
 	add_child(request)
 	
