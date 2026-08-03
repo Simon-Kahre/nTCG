@@ -167,6 +167,11 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 12
 
+[node name="Label" type="Label" parent="UI" unique_id=970934972]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uu408")
+theme_override_font_sizes/font_size = 80
+
 [node name="GridContainer" type="GridContainer" parent="UI" unique_id=641707909]
 layout_mode = 2
 theme_override_constants/h_separation = 20
@@ -243,4 +248,3 @@ columns = 5
 layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="finished"]
-[connection signal="pressed" from="UI/Confirm" to="." method="finished"]

@@ -51,6 +51,8 @@ text = "Confirm"
 custom_minimum_size = Vector2(0, 265)
 layout_mode = 2
 theme_override_constants/scrollbar_h_separation = 20
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollContainer" unique_id=1010010668]
 layout_mode = 2
@@ -60,7 +62,7 @@ layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=876151881]
 layout_mode = 2
-theme_override_constants/h_separation = 10
+theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 12
 columns = 5
 
