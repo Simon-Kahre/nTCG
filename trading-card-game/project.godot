@@ -13,6 +13,8 @@ config_version=5
 config/name="tradingCardGame"
 run/main_scene="uid://c5ynqehiijpeb"
 config/features=PackedStringArray("4.7", "Mobile")
+boot_splash/bg_color=Color(0.9098039, 0.23921569, 0.5176471, 1)
+boot_splash/image="uid://dircffi7sjowy"
 config/icon="res://assets/sprites/icon.svg"
 
 [autoload]
@@ -47,3 +49,4 @@ folder_colors={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.39869115, 0.011087496, 0.7434782, 1)
