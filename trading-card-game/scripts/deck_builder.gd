@@ -5,9 +5,10 @@ var collectedCardsContainer: GridContainer
 
 func _ready():
 	var screenSize = get_viewport_rect()
-	UI.position.x = 50
+	UI.position.x = 100
+	UI.position.y = 50
 	UI.find_child("GridContainer").add_theme_constant_override("h_separation", 50)
-	UI.scale = Vector2(screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50), screenSize.end[0]/(UI.find_child("GridContainer").size.x + 50))
+	UI.scale = Vector2(screenSize.end[0]/(UI.size.x + 100), screenSize.end[0]/(UI.size.x + 100))
 	collectedCardsContainer = UI.find_child("ScrollContainer").get_child(0).get_child(1)
 	collectedCardsContainer.add_theme_constant_override("h_separation", 40)
 	UI.find_child("ScrollContainer").custom_minimum_size.y = (screenSize.end[1] - (UI.find_child("GridContainer").size.y + 12 + UI.find_child("Confirm").size.y + 12 + 6)*UI.scale.y)/UI.scale.y

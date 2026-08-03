@@ -12,7 +12,7 @@ func _ready() -> void:
 	uiButtons.scale = Vector2(screenSize.end[0]/uiButtons.size.x*4/5, screenSize.end[0]/uiButtons.size.x*4/5)
 	uiButtons.position = Vector2(screenSize.end[0]/2-(uiButtons.size.x/2*uiButtons.scale.x), screenSize.end[1]/4)
 	
-	var deckBuilder = load("res://scenes/deckBuilder.tscn").instantiate()
+	var deckBuilder = load("res://scenes/viewCards.tscn").instantiate()
 	deckBuilder.name = "DeckBuilder"
 	self.add_child(deckBuilder)
 	for child in self.get_children():
@@ -37,6 +37,19 @@ func challenge_player():
 		opacity = 3
 
 func change_deck():
+	$VBoxContainer/Button.visible = false
+	$VBoxContainer/Button2.visible = false
+	$VBoxContainer/Button.disabled = true
+	$VBoxContainer/Button2.disabled = true
+	$VBoxContainer/Label.visible = false
+	if get_parent().find_child("HBoxContainer"):
+		get_parent().find_child("HBoxContainer").visible = false
+	for child in self.get_children():
+		if child.name == "DeckBuilder":
+			child.update_scroll_container()
+			child.visible = true
+
+func view_cards():
 	$VBoxContainer/Button.visible = false
 	$VBoxContainer/Button2.visible = false
 	$VBoxContainer/Button.disabled = true
