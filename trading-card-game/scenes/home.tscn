@@ -85,7 +85,7 @@ theme_override_font_sizes/font_size = 182
 theme_override_styles/normal = SubResource("StyleBoxFlat_2ts7t")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_uhids")
 theme_override_styles/hover = SubResource("StyleBoxFlat_w18ys")
-text = "Change Deck"
+text = "View Cards"
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=423486107]
 layout_mode = 2

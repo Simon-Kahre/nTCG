@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://825mlwc1wbjf"]
+
+[ext_resource type="Script" uid="uid://ba2xl67v4d72v" path="res://scripts/deck_builder.gd" id="1_07nb5"]
+[ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="3_cbenb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mcr5"]
+bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
+border_width_left = 30
+border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5isr1"]
+bg_color = Color(0.09411765, 0.09411765, 0.09411765, 1)
+border_width_left = 30
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu408"]
+bg_color = Color(0.7411765, 0.7411765, 0, 1)
+border_width_left = 30
+border_color = Color(0.8980392, 0.8980392, 0, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[node name="DeckBuilder" type="Node2D" unique_id=2091054651]
+script = ExtResource("1_07nb5")
+
+[node name="UI" type="VBoxContainer" parent="." unique_id=1832202849]
+offset_right = 700.0
+offset_bottom = 358.0
+theme_override_constants/separation = 12
+
+[node name="Confirm" type="Button" parent="UI" unique_id=1772663424]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cbenb")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_0mcr5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5isr1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uu408")
+text = "Confirm"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI" unique_id=632949578]
+custom_minimum_size = Vector2(0, 265)
+layout_mode = 2
+theme_override_constants/scrollbar_h_separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScrollContainer" unique_id=1010010668]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=126724705]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=876151881]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 12
+columns = 5
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/ScrollContainer/VBoxContainer" unique_id=442423961]
+layout_mode = 2
+
+[connection signal="pressed" from="UI/Confirm" to="." method="finished"]
