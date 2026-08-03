@@ -1,17 +1,17 @@
 extends Node2D
 
 var socket = WebSocketPeer.new()
-@export var webSocketUrl = "ws://localhost:3000"
-
 
 var allCards: Array[PackedScene]
 
 func _ready() -> void:
-	#Player.username = "simkah"
-	
+	var screenSize = get_viewport_rect()
+	var particles = $CPUParticles2D
+	particles.emission_rect_extents = Vector2(screenSize.end[0], screenSize.end[1])
+	particles.position = Vector2(screenSize.end[0], screenSize.end[1])/2
 	
 	if !Player.accessedDatabse:
-		var err = socket.connect_to_url(webSocketUrl)
+		var err = socket.connect_to_url(Player.websocketURL)
 	
 	var dir = DirAccess.open("res://assets/createdObjects/cards")
 	if dir:
@@ -25,15 +25,6 @@ func _ready() -> void:
 		print("An error has occured. Path for cards is not found.")
 	
 	Player.load_player(allCards)
-
-"""func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_C and currentScene != availableScenes.COLLECTION:
-			switch_scene(availableScenes.COLLECTION)
-		elif event.pressed and event.keycode == KEY_SPACE and currentScene != availableScenes.HOME:
-			switch_scene(availableScenes.HOME)
-		elif event.pressed and event.keycode == KEY_P and currentScene != availableScenes.PACK:
-			switch_scene(availableScenes.PACK)"""
 
 func _process(_delta: float) -> void:
 	if socket.get_ready_state() == WebSocketPeer.STATE_OPEN && !Player.accessedDatabse  && Player.gotUsername:
@@ -50,8 +41,8 @@ func _process(_delta: float) -> void:
 			continue
 		
 		for i in range(len(data)):
-			var id = int(data[i]["cardId"])
-			var count = int(data[i]["cardCount"])
+			var id = int(data[i]["cardid"])
+			var count = int(data[i]["cardcount"])
 			for j in range(count):
 				var card: PackedScene
 				match id:
@@ -67,3 +58,6 @@ func _process(_delta: float) -> void:
 						card = load("res://assets/createdObjects/cards/testcard.tscn")
 				Player.cards.append(card)
 		socket.close()
+
+func return_to_home():
+	self.find_child("Home").visible = true

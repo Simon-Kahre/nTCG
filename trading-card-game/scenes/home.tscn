@@ -4,9 +4,9 @@
 [ext_resource type="FontFile" uid="uid://clx4735y7khhy" path="res://fonts/AeogoPixellated-DYYEd.ttf" id="2_u4wd2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d545f"]
-bg_color = Color(0.73098576, 0.2799163, 3.85046e-07, 1)
+bg_color = Color(0.80784315, 0.16078432, 0.44313726, 1)
 border_width_left = 30
-border_color = Color(0.93694395, 0.36664718, 0, 1)
+border_color = Color(0.9098039, 0.23921569, 0.5176471, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
@@ -31,9 +31,9 @@ corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ts7t"]
-bg_color = Color(0.7294118, 0.2784314, 0, 1)
+bg_color = Color(0.80866396, 0.15907145, 0.44450244, 1)
 border_width_left = 30
-border_color = Color(0.9372549, 0.3647059, 0, 1)
+border_color = Color(0.9098039, 0.3019608, 0.5176471, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60

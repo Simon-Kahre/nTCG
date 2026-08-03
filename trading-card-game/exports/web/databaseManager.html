@@ -18,30 +18,58 @@
     </select><br><br>
     <label for="cardCount">Antal kort:</label><br>
     <input type="number" id="cardCount" min="1"><br>
-    <button type="button" id="send">Send Data</button>
+    <button type="button" id="send" disabled>Send Data</button>
   </form>
   
 
 
 <script>
-    // Connect to your WebSocket server
-    const socket = new WebSocket("ws://localhost:3000");
+    const socket = new WebSocket("ws://" + window.location.host + "/socket");
 
-    socket.addEventListener("open", () => {
+    let loggedInUser = null;
+
+    socket.addEventListener("open", async () => {
         console.log("Connected to server!");
+
+        try {
+            const response = await fetch("/me", {
+                credentials: "include"
+            });
+
+            if (!response.ok) {
+                window.location.href = "/login?redirect=database";
+                return;
+            }
+
+            const data = await response.json();
+
+            loggedInUser = data.user;
+
+            socket.send(JSON.stringify({
+                type: "authenticate",
+                user: loggedInUser
+            }));
+
+            document.getElementById("send").disabled = false;
+
+            console.log("Authenticated as:", loggedInUser);
+
+        } catch (error) {
+            console.error(error);
+        }
     });
 
     socket.addEventListener("message", (event) => {
-    const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data);
 
-    if (data.type === "databaseUpdated") {
-        console.log(data.message);
+        if (data.type === "databaseUpdated") {
+            console.log(data.message);
 
-        if (data.success) {
-            alert("Database updated!");
+            if (data.success) {
+                alert("Database updated!");
+            }
         }
-    }
-});
+    });
 
     document.getElementById("send").addEventListener("click", () => {
         if (socket.readyState === WebSocket.OPEN) {
@@ -57,6 +85,11 @@
             }));
 
             console.log("Data sent!");
+            console.log({
+                username,
+                cardId,
+                increase
+            });
         } else {
             console.log("WebSocket is not connected.");
         }

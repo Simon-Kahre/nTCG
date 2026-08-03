@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"os"
 )
 
 type TokenResponse struct {
@@ -18,23 +19,41 @@ type TokenResponse struct {
 	Scope       string `json:"scope"`
 }
 
+var ssoAddress string
+var ssoPort string
+var gameAddress string
+var gamePort string
+
+var ssoURL string
+
+var gameURL string
+
 func main() {
+	ssoAddress := os.Getenv("SSO_ADDRESS")
+	ssoPort := os.Getenv("SSO_PORT")
+	gameAddress := os.Getenv("GAME_ADDRESS")
+	gamePort := os.Getenv("GAME_PORT")
+
+	ssoURL := fmt.Sprintf("%s:%s", ssoAddress, ssoPort)
+
+	gameURL := fmt.Sprintf("%s:%s", gameAddress, gamePort)
+
 	http.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		redirect := r.URL.Query().Get("redirect")
 
 		params := url.Values{}
 		params.Set("client_id", "client-id")
-		params.Set("redirect_uri", "http://localhost:8080/oidcc/callback")
+		params.Set("redirect_uri", gameURL+"/oidcc/callback")
 		params.Set("response_type", "code")
 		params.Set("scope", "openid")
 
-		loginURL := "http://localhost:1339/authorize?" + params.Encode()
+		if redirect != "" {
+			params.Set("state", redirect)
+		}
 
-		http.Redirect(
-			w,
-			r,
-			loginURL,
-			http.StatusFound,
-		)
+		loginURL := ssoURL + "/authorize?" + params.Encode()
+		fmt.Println("Authorization URL:", loginURL)
+		http.Redirect(w, r, loginURL, http.StatusFound)
 	})
 
 	http.HandleFunc("/oidcc/callback", func(w http.ResponseWriter, r *http.Request) {
@@ -51,11 +70,11 @@ func main() {
 		data.Set("client_id", "client-id")
 		data.Set("client_secret", "client-secret")
 		data.Set("code", code)
-		data.Set("redirect_uri", "http://localhost:8080/oidcc/callback")
+		data.Set("redirect_uri", gameURL + "/oidcc/callback")
 
 		req, err := http.NewRequest(
 			"POST",
-			"http://host.docker.internal:1339/oauth/token",
+			"http://host.docker.internal:" + ssoPort + "/oauth/token",
 			strings.NewReader(data.Encode()),
 		)
 
@@ -124,12 +143,15 @@ func main() {
 			Secure: false,
 		})
 
-		http.Redirect(
-			w,
-			r,
-			"http://localhost:8080",
-			http.StatusFound,
-		)
+		destination := r.URL.Query().Get("state")
+
+		switch destination {
+			case "database":
+				http.Redirect(w, r, gameURL + "/databaseManager.html", http.StatusFound)
+			default:
+				// No redirect specified, or an unknown value
+				http.Redirect(w, r, gameURL, http.StatusFound)
+		}
 	})
 
 	http.HandleFunc("/me", func(w http.ResponseWriter, r *http.Request) {
@@ -158,8 +180,8 @@ func main() {
 		})
 	})
 
-	fmt.Println("Running on http://localhost:4000")
-	http.ListenAndServe(":4000", nil)
+	fmt.Println("Running on http://localhost:" + os.Getenv("LOGIN_PORT"))
+	http.ListenAndServe(":" + os.Getenv("LOGIN_PORT"), nil)
 }
 
 
@@ -167,7 +189,7 @@ func enableCORS(w http.ResponseWriter) {
 
 	w.Header().Set(
 		"Access-Control-Allow-Origin",
-		"http://localhost:8080",
+		gameURL,
 	)
 
 	w.Header().Set(
