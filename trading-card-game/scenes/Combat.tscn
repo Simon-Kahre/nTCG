@@ -406,14 +406,13 @@ text = "Power: "
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=790457232]
-custom_minimum_size = Vector2(168, 0)
+custom_minimum_size = Vector2(168, 128)
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=1952931011]
+[node name="Attack" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=1952931011]
 layout_mode = 2
-texture = ExtResource("1_4r6s1")
 
-[node name="TextureRect2" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=984638117]
+[node name="Support" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=984638117]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Battle Stage/Arena" unique_id=841725005]

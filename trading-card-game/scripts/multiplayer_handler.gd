@@ -230,8 +230,6 @@ func player_deck_done():
 	confirmCount += 1
 	if confirmCount == 2:
 		$"Battle Stage".draw_cards.rpc()
-		#$Combat/CombatStage.update_opponent_cards.rpc()
-		#$Combat/CombatStage.enable_buttons.rpc()
 
 func debug(text):
 	debugLabel.text += "\n" + str(text)

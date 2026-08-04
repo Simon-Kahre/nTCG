@@ -104,6 +104,7 @@ func draw_cards():
 		var tempObj = attackDeck[index].instantiate()
 		self.find_child("Arena").find_child("Player").find_child("HBoxContainer").find_child("Attack").texture = tempObj.find_child("Sprite2D").texture
 		tempObj.queue_free()
+		rpc_id(opponentId, "set_opponent_card", attackDeck[index].resource_path, true)
 		drawAttack = 2
 	else:
 		var index = randi_range(0, len(supportDeck)-1)
@@ -111,4 +112,16 @@ func draw_cards():
 		var tempObj = supportDeck[index].instantiate()
 		self.find_child("Arena").find_child("Player").find_child("HBoxContainer").find_child("Support").texture = tempObj.find_child("Sprite2D").texture
 		tempObj.queue_free()
+		rpc_id(opponentId, "set_opponent_card", attackDeck[index].resource_path, false)
 		drawAttack = 0
+
+@rpc("any_peer")
+func set_opponent_card(card: String, isAttack: bool):
+	if isAttack:
+		var tempObj = load(card).instantiate()
+		self.find_child("Arena").find_child("Opponent").find_child("HBoxContainer").find_child("Attack").texture = tempObj.find_child("Sprite2D").texture
+		tempObj.queue_free()
+	else:
+		var tempObj = load(card).instantiate()
+		self.find_child("Arena").find_child("Opponent").find_child("HBoxContainer").find_child("Support").texture = tempObj.find_child("Sprite2D").texture
+		tempObj.queue_free()
