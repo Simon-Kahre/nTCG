@@ -258,10 +258,10 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_t74xm")
 text = "Reset"
 
 [node name="TestingLabel" type="Label" parent="." unique_id=1280319589]
-offset_left = 226.0
+offset_left = 463.33
 offset_top = 76.0
-offset_right = 266.0
-offset_bottom = 99.0
+offset_right = 503.33005
+offset_bottom = 117.0
 theme_override_fonts/font = ExtResource("10_spaix")
 theme_override_font_sizes/font_size = 40
 

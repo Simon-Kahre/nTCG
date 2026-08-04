@@ -113,7 +113,7 @@ func join_button_pressed():
 
 func disable_buttons():
 	combatNode.visible = true
-	if host:
+	if !host:
 		combatNode.find_child("Card Count Picker").visible = true
 		var optionButton: OptionButton = combatNode.find_child("Card Count Picker").get_child(1)
 		for i in range(floori(len(Player.cards)/2)):
@@ -228,7 +228,7 @@ func player_confirmed():
 @rpc("any_peer","call_local","reliable")
 func player_deck_done():
 	confirmCount += 1
-	if confirmCount == 1:
+	if confirmCount == 2:
 		$"Battle Stage".draw_cards.rpc()
 		#$Combat/CombatStage.update_opponent_cards.rpc()
 		#$Combat/CombatStage.enable_buttons.rpc()
