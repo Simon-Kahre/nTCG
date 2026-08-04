@@ -39,6 +39,7 @@ func update_scroll_container():
 				tempButton.add_theme_stylebox_override("hover_pressed", load("res://assets/styleBox/deckSelectionNotSelected.tres"))
 			
 			collectedCardsContainer.add_child(tempButton)
+			tempCard.queue_free()
 
 func card_clicked(toggledOn: bool, cardScene: PackedScene, button: Button, connectedSlot: TextureRect = null):
 	if toggledOn:

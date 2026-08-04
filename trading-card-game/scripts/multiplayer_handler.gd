@@ -225,6 +225,14 @@ func player_confirmed():
 		$Combat/CombatStage.update_opponent_cards.rpc()
 		$Combat/CombatStage.enable_buttons.rpc()
 
+@rpc("any_peer","call_local","reliable")
+func player_deck_done():
+	confirmCount += 1
+	if confirmCount == 1:
+		$"Battle Stage".draw_cards.rpc()
+		#$Combat/CombatStage.update_opponent_cards.rpc()
+		#$Combat/CombatStage.enable_buttons.rpc()
+
 func debug(text):
 	debugLabel.text += "\n" + str(text)
 

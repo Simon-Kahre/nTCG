@@ -2,6 +2,8 @@ extends Node2D
 
 var opponentId: int = 0
 
+var delay = -1
+
 var supportDeck: Array[PackedScene]
 var attackDeck: Array[PackedScene]
 
@@ -10,10 +12,21 @@ var betCount: int
 var optionUI
 var deckBuilder
 
+var drawAttack: int = 0
+
 func _ready() -> void:
 	optionUI = find_child("Card Count Picker")
 	var screenSize = get_viewport_rect()
 	optionUI.position = Vector2(screenSize.end[0]/2-(optionUI.size.x/2*optionUI.scale.x), screenSize.end[1]/2-(optionUI.size.x/2*optionUI.scale.x))
+	self.find_child("Waiting").position = Vector2(optionUI.position.x - self.find_child("Waiting").size.x/4, optionUI.position.y)
+	self.find_child("Waiting").visible = false
+
+func _physics_process(delta: float) -> void:
+	if delay > 0:
+		delay -= delta
+		print(delay)
+	elif drawAttack != 0 && delay <= 0:
+		draw_cards()
 
 func confirm_count():
 	var option: OptionButton = optionUI.get_child(1)
@@ -70,7 +83,32 @@ func confirm_deck():
 				supportDeck.append(load(child.scenePath))
 			child.queue_free()
 		deckBuilder.queue_free()
+		self.get_parent().player_deck_done.rpc_id(1)
+		self.find_child("Waiting").visible = true
 	
 	print(attackDeck)
 	print(supportDeck)
 	pass
+
+@rpc("any_peer","call_local")
+func draw_cards():
+	if self.find_child("Waiting"):
+		self.find_child("Waiting").queue_free()
+	if drawAttack == 0:
+		delay = 3
+		drawAttack = 1
+	elif drawAttack == 1:
+		delay = 3
+		var index = randi_range(0, len(attackDeck)-1)
+		
+		var tempObj = attackDeck[index].instantiate()
+		self.find_child("Arena").find_child("Player").find_child("HBoxContainer").find_child("Attack").texture = tempObj.find_child("Sprite2D").texture
+		tempObj.queue_free()
+		drawAttack = 2
+	else:
+		var index = randi_range(0, len(supportDeck)-1)
+		
+		var tempObj = supportDeck[index].instantiate()
+		self.find_child("Arena").find_child("Player").find_child("HBoxContainer").find_child("Support").texture = tempObj.find_child("Sprite2D").texture
+		tempObj.queue_free()
+		drawAttack = 0

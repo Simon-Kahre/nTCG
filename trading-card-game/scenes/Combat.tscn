@@ -382,6 +382,66 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_xuxku")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7qnt1")
 text = "Confirm"
 
+[node name="Waiting" type="Label" parent="Battle Stage" unique_id=1157191292]
+offset_right = 1100.0
+offset_bottom = 81.0
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+text = "Waiting for player"
+
+[node name="Arena" type="VBoxContainer" parent="Battle Stage" unique_id=45511301]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Opponent" type="VBoxContainer" parent="Battle Stage/Arena" unique_id=179546102]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Battle Stage/Arena/Opponent" unique_id=1797424900]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+text = "Power: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Battle Stage/Arena/Opponent" unique_id=1898950820]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=790457232]
+custom_minimum_size = Vector2(168, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=1952931011]
+layout_mode = 2
+texture = ExtResource("1_4r6s1")
+
+[node name="TextureRect2" type="TextureRect" parent="Battle Stage/Arena/Opponent/HBoxContainer" unique_id=984638117]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Battle Stage/Arena" unique_id=841725005]
+custom_minimum_size = Vector2(0, 128.74)
+layout_mode = 2
+
+[node name="Player" type="VBoxContainer" parent="Battle Stage/Arena" unique_id=22840897]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Battle Stage/Arena/Player" unique_id=866426731]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_spaix")
+theme_override_font_sizes/font_size = 80
+text = "Power: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Battle Stage/Arena/Player" unique_id=1195519979]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Battle Stage/Arena/Player/HBoxContainer" unique_id=1683582711]
+custom_minimum_size = Vector2(168, 0)
+layout_mode = 2
+
+[node name="Attack" type="TextureRect" parent="Battle Stage/Arena/Player/HBoxContainer" unique_id=1952286952]
+layout_mode = 2
+
+[node name="Support" type="TextureRect" parent="Battle Stage/Arena/Player/HBoxContainer" unique_id=1003484999]
+layout_mode = 2
+
 [connection signal="pressed" from="Combat/Surrender" to="." method="surrender"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Join" to="." method="join_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Host" to="." method="host_button_pressed"]
